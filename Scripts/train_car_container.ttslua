@@ -26,7 +26,7 @@ function onObjectLeaveContainer(container, leave_object)
     -- Exit the function if the container is not this container
     if container ~= self then return end
     -- Set the rotation of the train car token
-    leave_object.setRotation({0, 90, 0})
+    leave_object.setRotation({0, 270, 0})
     -- Update the count of the train car tokens in this container
     updateButton()
 end

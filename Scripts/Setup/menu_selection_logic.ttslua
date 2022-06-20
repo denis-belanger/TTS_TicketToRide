@@ -17,17 +17,11 @@ function changePlayerCountSetting()
     player_count_setting = game_setup_mat.getButtons()[3].label
 
     if player_count_setting == "Auto" then
-        player_count_setting = "2"
+        player_count_setting = "2-3"
         number_of_players = 2
-    elseif player_count_setting == "2" then
-        player_count_setting = "3"
-        number_of_players = 3
-    elseif player_count_setting == "3" then
-        player_count_setting = "4"
+    elseif player_count_setting == "2-3" then
+        player_count_setting = "4-5"
         number_of_players = 4
-    elseif player_count_setting == "4" then
-        player_count_setting = "5"
-        number_of_players = 5
     else
         player_count_setting = "Auto"
         number_of_players = -1

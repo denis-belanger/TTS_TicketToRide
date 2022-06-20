@@ -10,27 +10,38 @@ end
 
 --// Update the points for a claimed route when a train car token enters or leaves a route zone //--
 function scoreClaimedRoutePoints(zone, object, score_increased)
-    if isRouteZone(zone) and isTrainCar(object) then
-        local token_name = object.getName()
-        local player_color = split(token_name, " ")[1]
-        local points = player_points[player_color]["Claimed Routes"]
-        local count = countsTrainCarsForPlayer(zone.getObjects(), token_name)
-        if count <= 6 then
-            if score_increased then
-                -- set conversion_chart index to previous lower value
-                previous_count = count - 1
-            else
-                -- set conversion_chart index to previous higher value
-                previous_count = count + 1
-            end
-            -- subtract previous value and add new value for current number of cars
-            points = points - point_conversion_chart[previous_count] + point_conversion_chart[count]
-            -- Track the total points for a player's claimed routes
-            player_points[player_color]["Claimed Routes"] = points
-            -- Update the total points counter for a player
-            updatePointsCounter(player_color)
-        end
+    -- Exit the function if the zone isn't a route zone
+    if isRouteZone(zone) == false then return end
+    -- Exit the function if the object isn't a train car token
+    if isTrainCar(object) == false then return end
+
+    local token_name = object.getName()
+    local count = countsTrainCarsForPlayer(zone.getObjects(), token_name)
+
+    -- Exit the function if the score increased and the token count exceeds six
+    if score_increased and count > 6 then return end
+    -- Exit the function if the score decreased and the token count exceeds five
+    if score_increased == false and count > 5 then return end
+
+    if score_increased then
+        -- set conversion_chart index to previous lower value
+        previous_count = count - 1
+    else
+        -- set conversion_chart index to previous higher value
+        previous_count = count + 1
     end
+
+    local player_color = split(token_name, " ")[1]
+    local points = player_points[player_color]["Claimed Routes"]
+
+    -- subtract the previous score and add then new score for current number of cars
+    points = points - point_conversion_chart[previous_count] + point_conversion_chart[count]
+
+    -- Track the total points for a player's claimed routes
+    player_points[player_color]["Claimed Routes"] = points
+
+    -- Update the total points counter for a player
+    updatePointsCounter(player_color)
 end
 
 --// Count the train car tokens //--
