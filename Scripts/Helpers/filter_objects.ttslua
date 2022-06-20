@@ -1,0 +1,5 @@
+--// Filters objects prior to entering a container //--
+function filterObjectEnter(object)
+    -- Allow only matching objects to enter
+    return string.match(self.getName(), object.getName()) ~= nil and object.type == "Figurine" or false
+end

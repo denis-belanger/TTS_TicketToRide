@@ -1,0 +1,209 @@
+<!--Card Count Tracker for White Player-->
+<VerticalLayout id="White_CardCounter" visibility="White" rectAlignment="MiddleRight" childAlignment="MiddleCenter" height="630" width="135" color="clear">
+    <TableLayout id="White_CardCount" cellPadding="4 0 0 0" columnWidths="20 0" cellBackgroundColor="clear">
+        <Row id="White_LocomotiveRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_LocomotiveCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Purple">0</Text></Cell>
+            <Cell><Image id="White_LocomotiveImage" image="Locomotive" tooltip="Locomotive" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_ReeferCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_ReeferCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Pink">0</Text></Cell>
+            <Cell><Image id="White_ReeferCarImage" image="Reefer Car" tooltip="Reefer Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_CoalCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_CoalCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Red">0</Text></Cell>
+            <Cell><Image id="White_CoalCarImage" image="Coal Car" tooltip="Coal Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_TankerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_TankerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Orange">0</Text></Cell>
+            <Cell><Image id="White_TankerCarImage" image="Tanker Car" tooltip="Tanker Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_BoxCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_BoxCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Yellow">0</Text></Cell>
+            <Cell><Image id="White_BoxCarImage" image="Box Car" tooltip="Box Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_CabooseRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_CabooseCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Green">0</Text></Cell>
+            <Cell><Image id="White_CabooseImage" image="Caboose" tooltip="Caboose" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_PassengerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_PassengerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Blue">0</Text></Cell>
+            <Cell><Image id="White_PassengerCarImage" image="Passenger Car" tooltip="Passenger Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_HopperCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_HopperCarCount" outline="Grey" outlineSize="1" resizeTextForBestFit="true" color="Black">0</Text></Cell>
+            <Cell><Image id="White_HopperCarImage" image="Hopper Car" tooltip="Hopper Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="White_FreightCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="White_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
+            <Cell><Image id="White_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
+        </Row>
+    </TableLayout>
+</VerticalLayout>
+
+<!--Card Count Tracker for Red Player-->
+<VerticalLayout id="Red_CardCounter" visibility="Red" rectAlignment="MiddleRight" childAlignment="MiddleCenter" height="630" width="135" color="clear">
+    <TableLayout id="Red_CardCount" cellPadding="4 0 0 0" columnWidths="20 0" cellBackgroundColor="clear">
+        <Row id="Red_LocomotiveRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_LocomotiveCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Purple">0</Text></Cell>
+            <Cell><Image id="Red_LocomotiveImage" image="Locomotive" tooltip="Locomotive" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_ReeferCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_ReeferCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Pink">0</Text></Cell>
+            <Cell><Image id="Red_ReeferCarImage" image="Reefer Car" tooltip="Reefer Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_CoalCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_CoalCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Red">0</Text></Cell>
+            <Cell><Image id="Red_CoalCarImage" image="Coal Car" tooltip="Coal Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_TankerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_TankerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Orange">0</Text></Cell>
+            <Cell><Image id="Red_TankerCarImage" image="Tanker Car" tooltip="Tanker Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_BoxCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_BoxCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Yellow">0</Text></Cell>
+            <Cell><Image id="Red_BoxCarImage" image="Box Car" tooltip="Box Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_CabooseRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_CabooseCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Green">0</Text></Cell>
+            <Cell><Image id="Red_CabooseImage" image="Caboose" tooltip="Caboose" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_PassengerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_PassengerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Blue">0</Text></Cell>
+            <Cell><Image id="Red_PassengerCarImage" image="Passenger Car" tooltip="Passenger Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_HopperCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_HopperCarCount" outline="Grey" outlineSize="1" resizeTextForBestFit="true" color="Black">0</Text></Cell>
+            <Cell><Image id="Red_HopperCarImage" image="Hopper Car" tooltip="Hopper Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Red_FreightCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Red_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
+            <Cell><Image id="Red_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
+        </Row>
+    </TableLayout>
+</VerticalLayout>
+
+<!--Card Count Tracker for Green Player-->
+<VerticalLayout id="Green_CardCounter" visibility="Green" rectAlignment="MiddleRight" childAlignment="MiddleCenter" height="630" width="135" color="clear">
+    <TableLayout id="Green_CardCount" cellPadding="4 0 0 0" columnWidths="20 0" cellBackgroundColor="clear">
+        <Row id="Green_LocomotiveRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_LocomotiveCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Purple">0</Text></Cell>
+            <Cell><Image id="Green_LocomotiveImage" image="Locomotive" tooltip="Locomotive" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_ReeferCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_ReeferCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Pink">0</Text></Cell>
+            <Cell><Image id="Green_ReeferCarImage" image="Reefer Car" tooltip="Reefer Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_CoalCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_CoalCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Red">0</Text></Cell>
+            <Cell><Image id="Green_CoalCarImage" image="Coal Car" tooltip="Coal Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_TankerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_TankerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Orange">0</Text></Cell>
+            <Cell><Image id="Green_TankerCarImage" image="Tanker Car" tooltip="Tanker Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_BoxCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_BoxCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Yellow">0</Text></Cell>
+            <Cell><Image id="Green_BoxCarImage" image="Box Car" tooltip="Box Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_CabooseRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_CabooseCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Green">0</Text></Cell>
+            <Cell><Image id="Green_CabooseImage" image="Caboose" tooltip="Caboose" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_PassengerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_PassengerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Blue">0</Text></Cell>
+            <Cell><Image id="Green_PassengerCarImage" image="Passenger Car" tooltip="Passenger Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Green_HopperCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Green_HopperCarCount" outline="Grey" outlineSize="1" resizeTextForBestFit="true" color="Black">0</Text></Cell>
+            <Cell><Image id="Green_HopperCarImage" image="Hopper Car" tooltip="Hopper Car" preserveAspect="true"></Image></Cell>
+            <Row id="Green_FreightCarRow" preferredHeight="70" active="false">
+                <Cell><Text  id="Green_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
+                <Cell><Image id="Green_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
+            </Row>
+        </Row>
+    </TableLayout>
+</VerticalLayout>
+
+<!--Card Count Tracker for Yellow Player-->
+<VerticalLayout id="Yellow_CardCounter" visibility="Yellow" rectAlignment="MiddleRight" childAlignment="MiddleCenter" height="630" width="135" color="clear">
+    <TableLayout id="Yellow_CardCount" cellPadding="4 0 0 0" columnWidths="20 0" cellBackgroundColor="clear">
+        <Row id="Yellow_LocomotiveRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_LocomotiveCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Purple">0</Text></Cell>
+            <Cell><Image id="Yellow_LocomotiveImage" image="Locomotive" tooltip="Locomotive" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_ReeferCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_ReeferCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Pink">0</Text></Cell>
+            <Cell><Image id="Yellow_ReeferCarImage" image="Reefer Car" tooltip="Reefer Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_CoalCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_CoalCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Red">0</Text></Cell>
+            <Cell><Image id="Yellow_CoalCarImage" image="Coal Car" tooltip="Coal Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_TankerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_TankerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Orange">0</Text></Cell>
+            <Cell><Image id="Yellow_TankerCarImage" image="Tanker Car" tooltip="Tanker Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_BoxCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_BoxCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Yellow">0</Text></Cell>
+            <Cell><Image id="Yellow_BoxCarImage" image="Box Car" tooltip="Box Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_CabooseRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_CabooseCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Green">0</Text></Cell>
+            <Cell><Image id="Yellow_CabooseImage" image="Caboose" tooltip="Caboose" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_PassengerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_PassengerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Blue">0</Text></Cell>
+            <Cell><Image id="Yellow_PassengerCarImage" image="Passenger Car" tooltip="Passenger Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_HopperCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_HopperCarCount" outline="Grey" outlineSize="1" resizeTextForBestFit="true" color="Black">0</Text></Cell>
+            <Cell><Image id="Yellow_HopperCarImage" image="Hopper Car" tooltip="Hopper Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Yellow_FreightCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Yellow_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
+            <Cell><Image id="Yellow_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
+        </Row>
+    </TableLayout>
+</VerticalLayout>
+
+<!--Card Count Tracker for Blue Player-->
+<VerticalLayout id="Blue_CardCounter" visibility="Blue" rectAlignment="MiddleRight" childAlignment="MiddleCenter" height="630" width="135" color="clear">
+    <TableLayout id="Blue_CardCount" cellPadding="4 0 0 0" columnWidths="20 0" cellBackgroundColor="clear">
+        <Row id="Blue_LocomotiveRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_LocomotiveCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Purple">0</Text></Cell>
+            <Cell><Image id="Blue_LocomotiveImage" image="Locomotive" tooltip="Locomotive" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_ReeferCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_ReeferCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Pink">0</Text></Cell>
+            <Cell><Image id="Blue_ReeferCarImage" image="Reefer Car" tooltip="Reefer Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_CoalCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_CoalCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Red">0</Text></Cell>
+            <Cell><Image id="Blue_CoalCarImage" image="Coal Car" tooltip="Coal Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_TankerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_TankerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Orange">0</Text></Cell>
+            <Cell><Image id="Blue_TankerCarImage" image="Tanker Car" tooltip="Tanker Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_BoxCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_BoxCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Yellow">0</Text></Cell>
+            <Cell><Image id="Blue_BoxCarImage" image="Box Car" tooltip="Box Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_CabooseRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_CabooseCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Green">0</Text></Cell>
+            <Cell><Image id="Blue_CabooseImage" image="Caboose" tooltip="Caboose" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_PassengerCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_PassengerCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="Blue">0</Text></Cell>
+            <Cell><Image id="Blue_PassengerCarImage" image="Passenger Car" tooltip="Passenger Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_HopperCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_HopperCarCount" outline="Grey" outlineSize="1" resizeTextForBestFit="true" color="Black">0</Text></Cell>
+            <Cell><Image id="Blue_HopperCarImage" image="Hopper Car" tooltip="Hopper Car" preserveAspect="true"></Image></Cell>
+        </Row>
+        <Row id="Blue_FreightCarRow" preferredHeight="70" active="false">
+            <Cell><Text  id="Blue_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
+            <Cell><Image id="Blue_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
+        </Row>
+    </TableLayout>
+</VerticalLayout>

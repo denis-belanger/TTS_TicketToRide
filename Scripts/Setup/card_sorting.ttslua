@@ -1,0 +1,32 @@
+--// Sort the cards in a hand zone //--
+function sortCards(zone)
+    -- Table to store the sortable list of cards present in the hand
+    local cards = {}
+    -- Table to store the list of card positions in the hand
+    local hand_position = {}
+    -- Get the list of cards in the hand and their positions
+    hand_objects = zone.getObjects()
+    for _, card in pairs(hand_objects) do
+        table.insert(cards, {card, card.getName()})
+        table.insert(hand_position, card.getPosition())
+    end
+    -- Sort the cards by the sort order and set their positions in the hand
+    table.sort(cards, sortOrder)
+    for i, j in ipairs(cards) do
+        j[1].setPosition(hand_position[i])
+    end
+end
+
+--// Comparison function used by table.sort() that determines the sorting order //--
+function sortOrder(card_one, card_two)
+    -- Grab the names and card order index for the cards being compared.
+    card_one_suit = card_one[1].getName()
+    card_one_suit_index = card_suit_order_index[card_one_suit]
+    card_two_suit = card_two[1].getName()
+    card_two_suit_index = card_suit_order_index[card_two_suit]
+
+    -- Sort suits together.
+    if card_one_suit ~= card_two_suit then
+        return card_one_suit_index < card_two_suit_index
+    end
+end

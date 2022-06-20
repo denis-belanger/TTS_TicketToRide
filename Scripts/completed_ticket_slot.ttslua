@@ -1,0 +1,20 @@
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onload()
+    addButtons()
+end
+
+--// Add the 'Refill' button to the card tray //--
+function addButtons()
+    self.createButton({
+        label = "Completed\nTickets",
+        click_function = "doNothing",
+        function_owner = Global,
+        position = {0, 0, 0},
+        rotation = {0, 0, 0},
+        scale = {0.3, 1, 0.3},
+        width = 0,
+        height = 0,
+        font_size = 600,
+        font_color = {r=1, g=1, b=1, a=50/256}
+    })
+end

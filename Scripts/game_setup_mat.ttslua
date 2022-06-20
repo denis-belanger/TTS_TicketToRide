@@ -1,0 +1,98 @@
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onload()
+    addButtons()
+end
+
+--// Add the menu selection buttons to the game setup mat //--
+function addButtons()
+    local button = {
+        owner     = Global,
+        position  = {x = 0, y = 0.2, z = 0},
+        scale     = {0.15, 1, 0.15},
+        width     = 2350,
+        height    = 600,
+        font_size = 350
+    }
+
+    local double_button_offset = 0.4 -- Multiple buttons offset from center
+
+    self.createButton({
+        click_function = 'checkPlayerCount',
+        function_owner = button.owner,
+        label          = 'Start Game',
+        position       = {button.position.x, button.position.y, button.position.z},
+        scale          = {0.25, 1, 0.25},
+        width          = button.width,
+        height         = button.height,
+        font_size      = button.font_size
+    })
+
+    self.createButton({
+        click_function = 'doNothing',
+        function_owner = button.owner,
+        label          = 'Players',
+        position       = {button.position.x - double_button_offset, button.position.y, button.position.z + 0.275},
+        scale          = button.scale,
+        width          = 0,
+        height         = 0,
+        font_size      = button.font_size,
+        font_color     = {1, 1, 1}
+    })
+
+    self.createButton({
+        click_function = 'changePlayerCountSetting',
+        function_owner = button.owner,
+        label          = 'Auto',
+        position       = {button.position.x - double_button_offset, button.position.y, button.position.z + 0.45},
+        scale          = button.scale,
+        width          = button.width / 2.65,
+        height         = button.height,
+        font_size      = button.font_size
+    })
+
+    self.createButton({
+        click_function = 'doNothing',
+        function_owner = button.owner,
+        label          = 'Turns',
+        position       = {button.position.x, button.position.y, button.position.z + 0.275},
+        scale          = button.scale,
+        width          = 0,
+        height         = 0,
+        font_size      = button.font_size,
+        font_color     = {1, 1, 1}
+    })
+
+    self.createButton({
+        click_function = 'enableTurns',
+        function_owner = button.owner,
+        label          = 'Off',
+        position       = {button.position.x, button.position.y, button.position.z + 0.45},
+        scale          = button.scale,
+        width          = button.width / 2.65,
+        height         = button.height,
+        font_size      = button.font_size
+    })
+
+    self.createButton({
+        click_function = 'doNothing',
+        function_owner = button.owner,
+        label          = 'Music',
+        position       = {button.position.x + double_button_offset, button.position.y, button.position.z + 0.275},
+        scale          = button.scale,
+        width          = 0,
+        height         = 0,
+        font_size      = button.font_size,
+        font_color     = {1, 1, 1}
+    })
+
+    self.createButton({
+        click_function = 'enableMusic',
+        function_owner = button.owner,
+        label          = 'Off',
+        position       = {button.position.x + double_button_offset, button.position.y, button.position.z + 0.45},
+        scale          = button.scale,
+        width          = button.width / 2.65,
+        height         = button.height,
+        font_size      = button.font_size
+    })
+end

@@ -1,0 +1,24 @@
+--[[
+    Each grid space is a scriptable zone that is either occupied or unoccupied
+    When the button is pressed, each unoccupied zone will be filled in with the top card of the deck
+--]]
+
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onload()
+    addButtons()
+end
+
+--// Add the 'Refill' button to the card tray //--
+function addButtons()
+    self.createButton({
+        label = "Refill",
+        click_function = "refillCardMat",
+        function_owner = Global,
+        position = {-1.55, 0.1, 0},
+        rotation = {0, 270, 0},
+        scale = {0.65, 0.1, 0.45},
+        width = 4000,
+        height = 1000,
+        font_size = 600
+    })
+end

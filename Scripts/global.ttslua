@@ -1,0 +1,38 @@
+-- Include Files
+#include !\TTS_TicketToRide\Scripts\Setup\variables
+#include !\TTS_TicketToRide\Scripts\Setup\menu_selection_logic
+#include !\TTS_TicketToRide\Scripts\Helpers\split_string
+#include !\TTS_TicketToRide\Scripts\Helpers\trim_spaces
+#include !\TTS_TicketToRide\Scripts\Setup\score_tracking
+#include !\TTS_TicketToRide\Scripts\Setup\player_mat_slots
+#include !\TTS_TicketToRide\Scripts\Setup\card_count_tracking
+#include !\TTS_TicketToRide\Scripts\Setup\card_sorting
+#include !\TTS_TicketToRide\Scripts\Setup\card_mat_management
+#include !\TTS_TicketToRide\Scripts\Setup\deck_management
+#include !\TTS_TicketToRide\Scripts\Setup\configure_players
+#include !\TTS_TicketToRide\Scripts\Setup\game_setup
+
+function onLoad()
+    initializeZones()
+    initializeObjects()
+end
+
+function onObjectEnterZone(zone, object)
+    initializeDeck(zone)
+    increaseClaimedRoutePoints(zone, object)
+    countCompletedTicketPoints(zone, object)
+    countIncompleteTicketPoints(zone, object)
+    countCardsOnEnteringHand(zone, object)
+    toggleReturnButton(zone, object)
+    toggleDiscardButton(zone, object)
+end
+--
+function onObjectLeaveZone(zone, object)
+    initializeDeck(zone)
+    decreaseClaimedRoutePoints(zone, object)
+    countCompletedTicketPoints(zone, object)
+    countIncompleteTicketPoints(zone, object)
+    countCardsOnLeavingHand(zone, object)
+    toggleReturnButton(zone, object)
+    toggleDiscardButton(zone, object)
+end

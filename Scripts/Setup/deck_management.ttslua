@@ -1,0 +1,176 @@
+--// Initialize a deck for the corresponding zone //--
+function initializeDeck(zone)
+    -- Exit the function if the zone is nil
+    if zone == nil then return end
+    -- Initialize the train deck if the zone is the train deck zone
+    if zone == train_deck_zone then initializeTrainDeck() end
+    -- Initialize the ticket deck if the zone is the ticket deck zone
+    if zone == ticket_deck_zone then initializeTicketDeck() end
+end
+
+--// Initialize the train deck //--
+function initializeTrainDeck()
+    -- Exit the function if the train deck already exists
+    if train_deck ~= nil then return end
+
+    -- Get a card from the train deck zone
+    train_card = getObjectTypeFromZone("Card", train_deck_zone)
+    -- Exit the function if there is a card in the train deck zone
+    if train_card ~= nil then return end
+
+    -- Set a deck as the train deck if a deck can be found in the train deck zone
+    train_deck = getObjectTypeFromZone("Deck", train_deck_zone)
+
+    if train_deck == nil then
+        -- Set a deck as the train deck if a deck can be found in the train deck discard zone
+        train_deck_discard_pile = getObjectTypeFromZone("Deck", train_deck_discard_zone)
+
+        -- Display a warning, highlight the deck slot, and exit the function if no deck exists
+        if train_deck_discard_pile == nil then
+            broadcastToAll("Cannot find the 'Train' deck. Please place the deck in the appropriate location.", Color.fromString("Orange"))
+            game_props.train_deck_slot.highlightOn(Color.fromString("Orange"), 3)
+            return -- Exit the function because there is no train deck or train card discard pile
+        end
+
+        -- Make the train deck discard pile the train deck
+        train_deck = train_deck_discard_pile
+        -- Move the train deck to the train deck zone
+        moveObjectToZone(train_deck, train_deck_zone)
+
+        deck_created_from_discard = true
+    end
+
+    -- Wait for the train deck to rest in the train deck zone
+    Wait.condition(
+        function()
+            -- Set the name of the deck
+            train_deck.setName("Train Deck")
+            -- Define the lua script that will applied to the train deck
+            train_deck_script = [[
+--// Deal no more than two train cards from this train deck to the player's hand //--
+function onNumberTyped(player_color, number)
+    if number < 3 then
+        self.deal(number, player_color)
+    end
+    return true
+end]]
+            -- Apply the lua script to the train deck
+            train_deck.setLuaScript(train_deck_script)
+            -- Shuffle the train deck
+            train_deck.shuffle()
+
+            -- Refill the card mat if the deck was created from the discard pile
+            if deck_created_from_discard then
+                refillCardMat()
+            end
+        end,
+        function()
+            -- Wait the the train deck to rest in the train deck zone
+            return train_deck.getZones()[1] == train_deck_zone and train_deck.resting
+        end,
+        2
+    )
+end
+
+--// Initialize the ticket deck //--
+function initializeTicketDeck()
+    -- Exit the function if the ticket deck already exists
+    if ticket_deck ~= nil then return end
+
+    -- Get a card from the ticket deck zone
+    ticket_card = getObjectTypeFromZone("Card", ticket_deck_zone)
+    -- Exit the function if there is a card in the train deck zone
+    if ticket_card ~= nil then return end
+
+    -- Create the ticket deck if the deck can be found
+    ticket_deck = getObjectTypeFromZone("Deck", ticket_deck_zone)
+
+    -- Display a warning, highlight the deck slot, and exit the function if no deck exists
+    if ticket_deck == nil then
+        broadcastToAll("Cannot find the 'Ticket' deck. Please place the deck in the appropriate location.", Color.fromString("Orange"))
+        game_props.ticket_deck_slot.highlightOn(Color.fromString("Orange"), 3)
+        return -- Exit the function because there is not ticket deck
+    end
+
+    -- Wait for the ticket deck to rest in the tiekct deck zone
+    Wait.condition(
+        function()
+            -- Set the name of the deck
+            ticket_deck.setName("Ticket Deck")
+            -- Define the lua script that will applied to the ticket deck
+            ticket_deck_script = [[
+--// Deal no more than three tickets from this ticket deck to the player's second hand //--
+function onNumberTyped(player_color, number)
+    if number < 4 then
+        self.deal(number, player_color, 2)
+    end
+    return true
+end]]
+            -- Apply the lua script to the ticket deck
+            ticket_deck.setLuaScript(ticket_deck_script)
+            -- Shuffle the train deck
+            ticket_deck.shuffle()
+
+        end,
+        function()
+            -- Wait the the train deck to rest in the train deck zone
+            return ticket_deck.getZones()[1] == ticket_deck_zone and ticket_deck.resting
+        end,
+        2
+    )
+end
+
+--// Helper function that gets an type of object from a zone //--
+function getObjectTypeFromZone(type, zone)
+    -- Exit the funciton if the zone is nil
+    if zone == nil then return end
+    -- Return the first object of the type within the zone
+    for _, object in ipairs(zone.getObjects()) do
+        if object.type == type then
+            return object
+        end
+    end
+end
+
+--// Helper function that moves an object to a zone
+function moveObjectToZone(object, zone)
+    -- Exit the funciton if the zone is nil
+    if zone == nil then return end
+    -- Exit the function if the object is nil
+    if object == nil then return end
+
+    object.setPositionSmooth(zone.getPosition(), false, false)
+    object.setRotationSmooth(zone.getRotation(), false, false)
+end
+
+--// Place a train card from the train deck or zone into a card slot zone //--
+function placeTrainCard(destination_zone)
+
+    -- If the train deck exists deal a card to the card slot zone
+    if train_deck ~= nil and #train_deck.getObjects() ~= 0 then
+        train_deck.takeObject({
+            position = destination_zone.getPosition(),
+            smooth = true,
+            flip = true
+        })
+    else
+        local card = nil
+
+        if train_deck ~= nil then
+            card = train_deck.remainder
+        end
+
+        if card == nil then
+            card = getObjectTypeFromZone("Card", train_deck_zone)
+        end
+
+        if card ~= nil then
+            if previous_moved_card == nil or previous_moved_card ~= card then
+                moveObjectToZone(card, destination_zone)
+            end
+            previous_moved_card = card
+        else
+            initializeTrainDeck()
+        end
+    end
+end

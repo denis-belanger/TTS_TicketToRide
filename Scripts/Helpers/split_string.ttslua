@@ -1,0 +1,8 @@
+--// Helper functions that splits strings by delimiter (returns table) //--
+function split(string, delimiter)
+    local result = {};
+    for match in (string .. delimiter):gmatch("(.-)%s*" .. delimiter .. "%s*") do
+        table.insert(result, match);
+    end
+    return result;
+end

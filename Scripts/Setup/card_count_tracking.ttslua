@@ -1,0 +1,76 @@
+--// Sort and count any cards that enter a hand //--
+function countCardsOnEnteringHand(zone, object)
+    -- Exit the function if the zone is nil
+    if zone == nil then return end
+    -- Exit the function if the object is nil
+    if object == nil then return end
+
+    for player_color, hand_zone_guid in pairs(player_hand_zone_guids) do
+        if zone.guid == hand_zone_guid then
+            local hand_object_count = #zone.getObjects()
+            Wait.condition(
+                function()
+                    if #zone.getObjects() == hand_object_count then
+                        sortCards(zone)
+                        countCards(zone, player_color)
+                    end
+                end,
+                function()
+                    -- Wait for the card to stop moving
+                    return object.resting
+                end
+            )
+        end
+    end
+end
+
+-- //Count the cards remaining a hand //--
+function countCardsOnLeavingHand(zone, object)
+    -- Exit the function if the zone is nil
+    if zone == nil then return end
+    -- Exit the function if the object is nil
+    if object == nil then return end
+
+    for player_color, hand_zone_guid in pairs(player_hand_zone_guids) do
+        if zone.guid == hand_zone_guid then
+            countCards(zone, player_color)
+        end
+    end
+end
+
+--// Count the cards in each suit //--
+function countCards(zone, player_color)
+    local layout_height = 0
+    for color, _ in pairs(card_suits) do
+        local cards = 0
+        if #zone.getObjects() ~= 0 then
+            for i = 1, #zone.getObjects() do
+                if string.match(zone.getObjects()[i].getName(), card_suits[color]) ~= nil then
+                    cards = cards + 1
+                end
+            end
+        end
+        setCardTrackerCount(player_color, card_suits[color], cards)
+        if cards > 0 then
+            layout_height = layout_height + 70
+        end
+    end
+    UI.setAttribute(player_color .. "_CardCounter", "height", layout_height)
+end
+
+--// Set the card count for the suit in the card count tracker and show/hide the counter for the suit based on the count //--
+function setCardTrackerCount(player_color, card_suit, count)
+    card_suit = trimSpaces(card_suit)
+    -- Check if the card tracker count for the suit is visible
+    local is_active = UI.getAttribute(player_color .. "_" .. card_suit .. "Row", "active")
+    UI.setValue(player_color .. "_" .. card_suit .. "Count", count)
+    if count > 0 then
+        if is_active == "false" then
+            UI.show(player_color .. "_" .. card_suit .. "Row")
+        end
+    else
+        if is_active == "true" then
+            UI.hide(player_color .. "_" .. card_suit .. "Row")
+        end
+    end
+end

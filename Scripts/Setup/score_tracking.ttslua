@@ -1,0 +1,124 @@
+--// Increase a player's points when a train car token enters a route zone //--
+function increaseClaimedRoutePoints(zone, object)
+    scoreClaimedRoutePoints(zone, object, true)
+end
+
+--// Decrease a player's points when a train car token leaves a route zone //--
+function decreaseClaimedRoutePoints(zone, object)
+    scoreClaimedRoutePoints(zone, object, false)
+end
+
+--// Update the points for a claimed route when a train car token enters or leaves a route zone //--
+function scoreClaimedRoutePoints(zone, object, score_increased)
+    if isRouteZone(zone) and isTrainCar(object) then
+        local token_name = object.getName()
+        local player_color = split(token_name, " ")[1]
+        local points = player_points[player_color]["Claimed Routes"]
+        local count = countsTrainCarsForPlayer(zone.getObjects(), token_name)
+        if count <= 6 then
+            if score_increased then
+                -- set conversion_chart index to previous lower value
+                previous_count = count - 1
+            else
+                -- set conversion_chart index to previous higher value
+                previous_count = count + 1
+            end
+            -- subtract previous value and add new value for current number of cars
+            points = points - point_conversion_chart[previous_count] + point_conversion_chart[count]
+            -- Track the total points for a player's claimed routes
+            player_points[player_color]["Claimed Routes"] = points
+            -- Update the total points counter for a player
+            updatePointsCounter(player_color)
+        end
+    end
+end
+
+--// Count the train car tokens //--
+function countsTrainCarsForPlayer(cars, token_name)
+    car_count = 0
+    for _, car in pairs(cars) do
+        if string.match(token_name, car.getName()) ~= nil then
+            car_count = car_count + 1
+        end
+    end
+    return car_count
+end
+
+--// Check if the scripting zone is a route //--
+function isRouteZone(zone)
+    for _, route in pairs(route_zones) do
+        if zone.getGUID() == route.guid then
+            return true
+        end
+    end
+    return false
+end
+
+--// Check if the object is a train car token //--
+function isTrainCar(object)
+    return object.type == "Figurine" and string.match(object.getName(), "Car Token") ~= nil
+end
+
+--// Count the number of completed tickets //--
+function countCompletedTicketPoints(zone, object)
+    countTicketPoints(zone, object, "Completed")
+end
+
+--// Count the number of incomplete tickets //--
+function countIncompleteTicketPoints(zone, object)
+    countTicketPoints(zone, object, "Incomplete")
+end
+
+--// Count the number of tickets in a zone //--
+function countTicketPoints(zone, object, ticket_state)
+    -- Exit the function if the zone is nil
+    if zone == nil then return end
+    -- Exit the function if the zone doesn't have a name
+    if zone.getName() == nil then return end
+    -- Exit the function if the zone isn't a completed routes zone
+    if string.match(zone.getName(), ticket_state .. " Tickets Zone") == nil then return end
+    -- Exit the function if the object is nil
+    if object == nil then return end
+    -- Exit the function if the object doesn't have a name
+    if object.getName() == nil then return end
+
+    -- Get the player color from the name of the player's point zone
+    local player_color = split(zone.getName(), " ")[5]
+
+    -- Set the default count for tickets
+    local points = 0
+
+    if #zone.getObjects() ~= 0 then
+        for _, object in ipairs(zone.getObjects()) do
+            if object.type == "Deck" then
+                -- Exit the loop if the object is nil
+                if object == nil then break end
+
+                for _, card in ipairs(object.getObjects()) do
+                    local ticket_points = split(card.description, "-")[3]
+                    points = points + ticket_points
+                end
+            else
+                -- Exit the loop if the object is nil
+                if object == nil then break end
+
+                local ticket_points = split(object.getDescription(), "-")[3]
+                points = points + ticket_points
+            end
+        end
+    end
+    -- Track the total points for a player's tickets of a certain state
+    player_points[player_color][ticket_state .. " Tickets"] = points
+    -- Update the total points counter for a player
+    updatePointsCounter(player_color)
+end
+
+--// Update a player't total points from claimed routes and completed/incomplete tickets //--
+function updatePointsCounter(player_color)
+    points = player_points[player_color]["Claimed Routes"] + player_points[player_color]["Completed Tickets"] - player_points[player_color]["Incomplete Tickets"]
+    if points < 0 then points = 0 end
+    point_counters[player_color].Counter.setValue(points)
+end
+
+--// Dummy function for disabled buttons //--
+function doNothing() end

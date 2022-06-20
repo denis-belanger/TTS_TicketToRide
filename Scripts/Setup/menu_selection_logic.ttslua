@@ -1,0 +1,63 @@
+-- Menu selection states
+player_count_setting = "Auto"
+turns_enabled        = false
+music_enabled        = false
+
+-- Menu button settings
+setup_button_color          = {1, 1, 1}
+selected_setup_button_color = {0.376, 0.510, 0.133}
+setup_button_width          = 2350
+setup_button_height         = 600
+
+--// Set the player count based on the selected menu button option //--
+function changePlayerCountSetting()
+    local button_index = 2
+    local button_parameters = {}
+    button_parameters.index = button_index
+    player_count_setting = game_setup_mat.getButtons()[3].label
+
+    if player_count_setting == "Auto" then
+        player_count_setting = "2"
+        number_of_players = 2
+    elseif player_count_setting == "2" then
+        player_count_setting = "3"
+        number_of_players = 3
+    elseif player_count_setting == "3" then
+        player_count_setting = "4"
+        number_of_players = 4
+    elseif player_count_setting == "4" then
+        player_count_setting = "5"
+        number_of_players = 5
+    else
+        player_count_setting = "Auto"
+        number_of_players = -1
+    end
+    button_parameters.label = player_count_setting
+    game_setup_mat.editButton(button_parameters)
+end
+
+--// Enable turns if the button is enabled //--
+function enableTurns()
+    local button_index = 4
+
+    if turns_enabled then
+        turns_enabled = false
+        game_setup_mat.editButton({index = button_index, label = "Off", color = setup_button_color})
+    else
+        turns_enabled = true
+        game_setup_mat.editButton({index = button_index, label = "On", color = selected_setup_button_color})
+    end
+end
+
+--// Enable music if the button is enabled //--
+function enableMusic()
+    local button_index = 6
+
+    if music_enabled then
+        music_enabled = false
+        game_setup_mat.editButton({index = button_index, label = "Off", color = setup_button_color})
+    else
+        music_enabled = true
+        game_setup_mat.editButton({index = button_index, label = "On", color = selected_setup_button_color})
+    end
+end

@@ -1,0 +1,155 @@
+--// Enable or disable the 'Return' button //--
+function toggleReturnButton(zone, object)
+    local slot_name = "Return Tickets"
+
+    -- Exit the function if the zone and object are not valid
+    if not validateSlotZoneObject(zone, object, slot_name) then return end
+
+    -- Get the player color from the name of the player's point zone
+    local player_color = split(zone.getName(), "-")[2]
+    local slot = player_mat_slots[player_color][slot_name]
+
+    if #zone.getObjects() == 0 then
+        slot.editButton({index = 1, label = "", height = 0, width = 0})
+    else
+        local button_label = split(slot_name, " ")[1]
+        slot.editButton({index = 1, label = button_label, height = 1000, width = 2100})
+    end
+end
+
+--// Enable or disable the 'Discard' button //--
+function toggleDiscardButton(zone, object)
+    local slot_name = "Discard Train Set"
+
+    -- Exit the function if the zone and object are not valid
+    if validateSlotZoneObject(zone, object, slot_name) == false then return end
+
+    -- Get the player color from the name of the discard train set zone
+    local player_color = split(zone.getName(), "-")[2]
+    local slot = player_mat_slots[player_color][slot_name]
+
+    if #zone.getObjects() == 0 then
+        countTrainSetCards(zone, slot)
+        displayDiscardSlotDecals(slot, false)
+        slot.editButton({index = 1, label = "", height = 0, width = 0, color = {0, 0, 0}})
+    else
+        local valid_train_set = countTrainSetCards(zone, slot)
+        local button_label = split(slot_name, " ")[1]
+        local button_color = {0, 0, 0}
+        if valid_train_set == false then
+            button_color = {0.784, 0.22, 0.153} -- Custom red color
+        end
+        displayDiscardSlotDecals(slot, true)
+        slot.editButton({index = 1, label = button_label, height = 1000, width = 2100, color = button_color})
+    end
+end
+
+--// Check that the slot zone and object are valid //--
+function validateSlotZoneObject(zone, object, slot_name)
+    -- Exit the function if the zone is nil
+    if zone == nil then return false end
+    -- Exit the function if the zone doesn't have a name
+    if zone.getName() == nil then return false end
+    -- Exit the function if the zone isn't a completed routes zone
+    if string.match(zone.getName(), slot_name .. " Zone") == nil then return false end
+    -- Exit the function if the object is nil
+    if object == nil then return false end
+    -- Exit the function if the object doesn't have a name
+    if object.getName() == nil then return false end
+    -- Exit the function if the object isn't a card or a deck
+    if object.type ~= "Card" and object.type ~= "Deck" then return false end
+
+    return true
+end
+
+--// Counts the train cards in the discard slot zone //--
+function countTrainSetCards(zone, slot)
+    local suit_card_counts = {}
+
+    for _, card_name in pairs(card_suits) do
+        suit_card_counts[card_name] = 0
+    end
+
+    -- Count the number of train cards by suit
+    for _, object in ipairs(zone.getObjects()) do
+        if object.type == "Deck" then
+            -- Exit the loop if the object is nil
+            if object == nil then break end
+
+            for _, card in ipairs(object.getObjects()) do
+                -- Get the name of the card
+                local card_name = card.name
+                -- Break out of the loop if the card is not a train card
+                if suit_card_counts[card_name] == nil then break end
+                -- Increment the gem token count
+                suit_card_counts[card_name] = suit_card_counts[card_name] + 1
+            end
+        else
+            -- Exit the loop if the object is nil
+            if object == nil then break end
+
+            -- Get the name of the card
+            local card_name = object.getName()
+            -- Break out of the loop if the card is not a train card
+            if suit_card_counts[card_name] == nil then break end
+            -- Increment the gem token count
+            suit_card_counts[card_name] = suit_card_counts[card_name] + 1
+        end
+    end
+
+    -- Updates the item counts
+    slot.editButton({index =  2, label = setLabel(suit_card_counts["Locomotive"])})
+    slot.editButton({index =  3, label = setLabel(suit_card_counts["Reefer Car"])})
+    slot.editButton({index =  4, label = setLabel(suit_card_counts["Coal Car"])})
+    slot.editButton({index =  5, label = setLabel(suit_card_counts["Tanker Car"])})
+    slot.editButton({index =  6, label = setLabel(suit_card_counts["Box Car"])})
+    slot.editButton({index =  7, label = setLabel(suit_card_counts["Caboose"])})
+    slot.editButton({index =  8, label = setLabel(suit_card_counts["Passenger Car"])})
+    slot.editButton({index =  9, label = setLabel(suit_card_counts["Hopper Car"])})
+    slot.editButton({index = 10, label = setLabel(suit_card_counts["Freight Car"])})
+
+    -- Count the number of card suits
+    local suit_count = 0
+    for _, count in pairs(suit_card_counts) do
+        if count > 0 then
+            suit_count = suit_count + 1
+        end
+    end
+
+    -- Check if the cards in the discard train set slot constite a valid train set
+    local valid_train_set = false
+    if suit_count == 2 and suit_card_counts["Locomotive"] > 0 or suit_count == 1 then
+        valid_train_set = true
+    end
+
+    return valid_train_set
+end
+
+-- // Display or hide the suit symbol decals from the discard train set slot //--
+function displayDiscardSlotDecals(slot, display)
+    -- Exit the function if display is nil
+    if display == nil then return end
+
+    -- Set the default y position of the decals so they not visible
+    local position_y = -5
+    -- Set the y position of the decals so they are visible
+    if display then position_y = 0 end
+
+    -- Get the decals on the slot and change their y position
+    local decals = slot.getDecals()
+    for i, _ in ipairs(decals) do
+        decals[i].position.y = position_y
+    end
+    slot.setDecals(decals)
+end
+
+--// Helper function that converts an interger into a string for use as a button label //--
+function setLabel(count)
+    if count == 0 then
+        label = ""
+    else
+        label = tostring(count)
+    end
+
+    return label
+end

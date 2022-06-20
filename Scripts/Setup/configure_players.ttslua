@@ -1,0 +1,43 @@
+--// Select the starting player form the list of available players if any //--
+function selectStartingPlayer()
+    local starting_player_color = nil
+    if #seated_players > 0 then
+        local starting_player_number = math.random(1, #seated_players)
+        starting_player_color = seated_players[starting_player_number]
+        broadcastToAll(Player[starting_player_color].steam_name .. " is the starting player!", Color.fromString(starting_player_color))
+    end
+    return starting_player_color
+end
+
+--// Set the turn order for the players relative to the starting player //--
+function setTurnOrder(starting_player_color)
+    Turns.type = 2
+    if starting_player_color == "Red" then
+        turn_order = {"Red", "Green", "Yellow", "Blue", "White"}
+    elseif starting_player_color == "Green" then
+        turn_order = {"Green", "Yellow", "Blue", "White", "Red"}
+    elseif starting_player_color == "Yellow" then
+        turn_order = {"Yellow", "Blue", "White", "Red", "Green"}
+    elseif starting_player_color == "Blue" then
+        turn_order = {"Blue", "White", "Red", "Green", "Yellow"}
+    else
+        turn_order = {"White", "Red", "Green", "Yellow", "Blue"}
+    end
+    Turns.order = turn_order
+end
+
+--// Checks whether the number of players is sufficient to start the game //--
+function checkPlayerCount()
+    seated_players = getSeatedPlayers()
+    if player_count_setting == "Auto" then
+        number_of_players = #seated_players
+
+        if number_of_players < 2 then
+            broadcastToAll("Insufficient number of players to start the game!\nPlease wait for additional seated players before starting.", Color.fromString("Orange"))
+        else
+            startGame()
+        end
+    else
+        startGame()
+    end
+end

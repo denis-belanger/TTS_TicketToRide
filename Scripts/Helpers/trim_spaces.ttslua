@@ -1,0 +1,4 @@
+--// Helper functions that trims spaces from a string (returns string) //--
+function trimSpaces(string)
+   return string:gsub("%s+", "")
+end

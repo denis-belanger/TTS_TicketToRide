@@ -1,0 +1,40 @@
+--// Setup and place all necessary components //--
+function startGame()
+    -- Exit the function if the train deck is nil
+    if train_deck == nil then return end
+    -- Exit the function if the ticket deck is nil
+    if ticket_deck == nil then return end
+
+    -- Broadcast the number of players in the game
+    print("Starting a new " .. number_of_players .. "-player game...")
+
+    -- Remove the game setup mat
+    game_setup_mat_bag.putObject(game_setup_mat)
+
+    -- Deal four train cards and three tickets to all seated players
+    train_deck.deal(4)
+    -- Deal ticket cards to second hand zone of all players
+    for _, player in ipairs(Player.getPlayers()) do
+        ticket_deck.deal(3, player.color, 2)
+    end
+
+    -- Fill the card tray with train cards
+    refillCardMat()
+
+    -- Set the turn order relative to the starting player
+    setTurnOrder(selectStartingPlayer())
+    -- Enable turns if the option is enabled
+    Turns.enable = turns_enabled
+
+    -- Start playing music if the option is enabled
+    if music_enabled then
+        Wait.condition(
+            function()
+                MusicPlayer.play()
+            end,
+            function() -- Condition function
+                return MusicPlayer.loaded -- Wait for everyone to finish loading the audioclip
+            end
+        )
+    end
+end

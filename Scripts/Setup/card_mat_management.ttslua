@@ -1,0 +1,83 @@
+--// Refill any empty slots on the the card mat //--
+function refillCardMat()
+    for i, card_mat_zone in ipairs(card_mat_zones) do
+        if #card_mat_zone.getObjects() == 0 then
+            placeTrainCard(card_mat_zone)
+        end
+    end
+
+    Wait.condition(
+        function()
+            -- Exit the function is the number of locomotive cards is below three
+            if locomotive_card_count < 3 then return end
+            -- Refresh the card mat
+            refreshCardMat()
+        end,
+        function()
+            -- Wait for the cards in each card mat slot to be resting
+            return countRestingCards() > 4
+        end,
+        3
+    )
+end
+
+-- Count the number of resting cards on the card mat
+function countRestingCards()
+    local resting_cards_count = 0
+    locomotive_card_count = 0
+    -- Wait for all card mat slots to be occuped by resting cards
+    for _, zone in pairs(card_mat_zones) do
+        local objects = zone.getObjects()
+        -- Exit the function if the card mat slot is empty
+        if #objects == 0 then return resting_cards_count end
+
+        -- Count any resting cards and any locomotive cards
+        for _, object in pairs(objects) do
+            if object.resting then
+                resting_cards_count = resting_cards_count + 1
+                if object.getName() == "Locomotive" then
+                    locomotive_card_count = locomotive_card_count + 1
+                end
+            end
+        end
+    end
+    -- Retunr the number of resting cards on the card mat
+    return resting_cards_count
+end
+
+--// Refresh the card mat if three locomotives are on the mat //--
+function refreshCardMat()
+    -- Move all of the cards on the card mat to the train deck discard zone
+    for _, zone in pairs(card_mat_zones) do
+        if #zone.getObjects() ~= 0 then
+            for _, object in pairs(zone.getObjects()) do
+                moveObjectToZone(object, train_deck_discard_zone)
+            end
+        end
+    end
+
+    Wait.condition(
+        function()
+            -- Refill the card mat
+            refillCardMat()
+        end,
+        function()
+            -- Wait for each card mat slot zone to be empty
+            return countEmptyCardSlots() > 4
+        end,
+        3
+    )
+end
+
+-- Count the number of empty card slot zones on the card mat
+function countEmptyCardSlots()
+    local empty_card_slot_count = 0
+
+    for _, zone in pairs(card_mat_zones) do
+        if #zone.getObjects() == 0 then
+            empty_card_slot_count = empty_card_slot_count + 1
+        end
+    end
+    -- Return the number of empty card slot zones
+    return empty_card_slot_count
+end

@@ -1,0 +1,71 @@
+-- Include Files
+#include !\TTS_TicketToRide\Scripts\Helpers\filter_objects
+
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onLoad()
+    Wait.condition(
+        function()
+            addButtons()
+        end,
+        function()
+            return self.type == "Bag" -- Wait for this object to become a container
+        end
+    )
+end
+
+--// Triggers when an object enters a container //--
+function onObjectEnterContainer(container, enter_object)
+    -- Exit the function if the container is not this container
+    if container ~= self then return end
+    -- Update the count of the train car tokens in this container
+    updateButton()
+end
+
+--// Triggers when an object leaves a container //--
+function onObjectLeaveContainer(container, leave_object)
+    -- Exit the function if the container is not this container
+    if container ~= self then return end
+    -- Set the rotation of the train car token
+    leave_object.setRotation({0, 90, 0})
+    -- Update the count of the train car tokens in this container
+    updateButton()
+end
+
+--// Add buttons to display the count of the train car tokens in this container //--
+function addButtons()
+    position = {x = 3, y = 1.465, z = 0}
+
+    -- Add a button with no background that displays the train car token count
+    self.createButton({
+        click_function = "doNothing",
+        function_owner = Global,
+        label          = #self.getObjects(),
+        position       = {position.x, position.y, position.z + 0.041},
+        rotation       = {0, 0, 0},
+        height         = 0,
+        width          = 0,
+        font_color     = "White",
+        font_size      = 380
+    })
+
+    -- Add a disabled button as a background to the train car token count button
+    self.createButton({
+        click_function = "doNothing",
+        function_owner = Global,
+        position       = {position.x, position.y, position.z},
+        rotation       = {180, 0, 0},
+        height         = 345,
+        width          = 945,
+        color          = {0, 0, 0}
+    })
+end
+
+--// Update the buttons that display the count of the train car tokens in this container //--
+function updateButton()
+    local button_color = {0, 0, 0}
+    if #self.getObjects() < 3 then
+        button_color = {0.784, 0.22, 0.153} -- Custom red color
+    end
+    self.editButton({index = 0, label = #self.getObjects()})
+    self.editButton({index = 1, color = button_color})
+end

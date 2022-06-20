@@ -1,0 +1,62 @@
+-- Include Files
+#include !\TTS_TicketToRide\Scripts\Helpers\split_string
+
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onload()
+    addButtons()
+end
+
+--// Add buttons to the 'Return Tickets' slot on the player's mat
+function addButtons()
+    -- Add a button as a label for the slot
+    self.createButton({
+        label          = "Return\nTickets",
+        click_function = "doNothing",
+        function_owner = Global,
+        position       = {0, 0, 0},
+        rotation       = {0, 0, 0},
+        scale          = {0.3, 1, 0.3},
+        width          = 0,
+        height         = 0,
+        font_size      = 600,
+        font_color     = {r=1, g=1, b=1, a=50/256}
+    })
+
+    -- Add a button that returns the tickets to the bottom of the ticket deck
+    self.createButton({
+        label          = "",
+        click_function = "returnTickets",
+        function_owner = self,
+        position       = {0, 0.5, 0},
+        rotation       = {0, 0, 0},
+        scale          = {0.3, 1, 0.3},
+        height         = 0,
+        width          = 0,
+        color          = {0, 0, 0},
+        font_size      = 600,
+        font_color     = "White"
+    })
+end
+
+--// Return tickets from a player mat to the bottom of the tickets deck //--
+function returnTickets()
+    local ticket_deck_discard_zone = Global.getVar("ticket_deck_discard_zone")
+    local ticket_deck_zone = Global.getVar("ticket_deck_zone")
+    local ticket_deck = Global.getVar("ticket_deck")
+    local player_mat_slot_zones = Global.getTable("player_mat_slot_zones")
+    local player_color = split(self.getName(), "-")[2]
+    local zone = player_mat_slot_zones[player_color]["Return Tickets"]
+
+    -- Move the card or deck to the train deck discard zone
+    for _, object in pairs(zone.getObjects()) do
+        if ticket_deck ~= nil then
+            object.setPosition(ticket_deck_discard_zone.getPosition())
+            object.setRotation(ticket_deck.getRotation())
+            ticket_deck.putObject(object)
+        else
+            ticket_deck_zone.getObjects()[1].setPosition(ticket_deck_zone.getPosition())
+            object.setPosition({ticket_deck_zone.getPosition().x, ticket_deck_zone.getPosition().y - 0.74, ticket_deck_zone.getPosition().z})
+            object.setRotation({0, 180, 180})
+        end
+    end
+end

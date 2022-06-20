@@ -1,0 +1,98 @@
+-- Include Files
+#include !\TTS_TicketToRide\Scripts\Helpers\split_string
+
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onload()
+    addButtons()
+end
+
+--// Add buttons to the 'Dicard Train Set' slot on the player's mat
+function addButtons()
+    -- Add a button as a label for the slot
+    self.createButton({
+        label          = "Discard\nTrain Set",
+        click_function = "doNothing",
+        function_owner = Global,
+        position       = {0, 0, 0},
+        rotation       = {0, 0, 0},
+        scale          = {0.3, 1, 0.3},
+        width          = 0,
+        height         = 0,
+        font_size      = 600,
+        font_color     = {r=1, g=1, b=1, a=50/256}
+    })
+
+    -- Add a button that moves the train cards from the player's mat to the train card discard pile
+    self.createButton({
+        label          = "",
+        click_function = "discardTrainSet",
+        function_owner = self,
+        position       = {0, 0.5, 0},
+        rotation       = {0, 0, 0},
+        scale          = {0.3, 1, 0.3},
+        height         = 0,
+        width          = 0,
+        color          = {0, 0, 0},
+        font_size      = 600,
+        font_color     = "White"
+    })
+
+    -- Add a decal and button to display the card count for each card suit
+    local card_suit_decals = {
+        ["Purple"] = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411445/11260ED366FF61EBCB1D633E9FF6F9CA750F32C0/", color = "Purple"},
+        ["Pink"]   = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411551/04BB0250365217B7CA23EB29BD1AD14AC83CACEF/", color = {0.895, 0.423, 0.621}},
+        ["Red"]    = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411600/DAF860E56055019FB667295267C237FC40B70192/", color = "Red"},
+        ["Orange"] = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411495/79AC3E190C3C2F4FA61F4FC39BEB919ED76DF2F0/", color = "Orange"},
+        ["Yellow"] = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411691/0299A1A077C98C0AE4B720EE88118134C07BBD14/", color = {0.968, 0.894, 0.008}},
+        ["Green"]  = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411385/D145F1D84D5C3FF1A8C9261932764377977BE621/", color = {0.675, 0.724, 0.008}},
+        ["Blue"]   = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411330/88F80D6D266FE8BE43DC982BDD70A9D91E4A8A12/", color = {0.008, 0.51, 0.842}},
+        ["Black"]  = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411253/C2B6F54ED4CAEC1F4C62CD8F01FC5F6F6F76AD4B/", color = {0.323, 0.417, 0.456}},
+        ["White"]  = {url = "http://cloud-3.steamusercontent.com/ugc/1878577842015411644/EF548345E11D9D414C9DBECB563ACEC81B159418/", color = {0.82, 0.874, 0.864}},
+    }
+    local offset_x = 0
+    local offset_increment = 0.2
+    local decals = {}
+
+    for color, params in pairs(card_suit_decals) do
+        local decal = {
+            name     = color .. " Suit Symbol",
+            url      = params.url,
+            position = {offset_increment * 4 - offset_x, -5, -1.55},
+            -- position = {0.935 + -1 * offset_x, 0, -1.35},
+            rotation = {90, 180, 0},
+            scale    = {0.1638, 0.2678, 0.1}
+            -- scale    = {0.126, 0.206, 0.1}
+        }
+        table.insert(decals, decal)
+        self.createButton({
+            label          = "",
+            click_function = "doNothing",
+            function_owner = self,
+            position       = {-offset_increment * 4 + offset_x, 0, -1.25},
+            -- position       = {-0.835 + offset_x, 0, -1.2},
+            rotation       = {0, 0, 0},
+            scale          = {0.25, 0, 0.35},
+            -- scale          = {0.25, 0, 0.35},
+            height         = 0,
+            width          = 0,
+            font_size      = 350,
+            font_color     = params.color
+        })
+        offset_x = offset_x + offset_increment
+    end
+    self.setDecals(decals)
+end
+
+--// Move train sets for claimed routes to the train deck discard pile //--
+function discardTrainSet()
+    local train_deck_discard_zone = Global.getVar("train_deck_discard_zone")
+    local player_mat_slot_zones = Global.getTable("player_mat_slot_zones")
+    local player_color = split(self.getName(), "-")[2]
+    local zone = player_mat_slot_zones[player_color]["Discard Train Set"]
+
+    -- Move the card or deck to the train deck discard zone
+    for _, object in pairs(zone.getObjects()) do
+        object.setPosition(train_deck_discard_zone.getPosition())
+        object.setRotation(train_deck_discard_zone.getRotation())
+    end
+end
