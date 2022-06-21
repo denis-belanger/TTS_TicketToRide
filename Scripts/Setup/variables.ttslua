@@ -84,6 +84,14 @@ player_mat_slot_guids = {
     }
 }
 
+player_steam_effect_guids = {
+    ["White"]  = "fc1286",
+    ["Red"]    = "c7cb34",
+    ["Green"]  = "2a06dd",
+    ["Yellow"] = "ecc2ec",
+    ["Blue"]   = "99fffc"
+}
+
 point_counter_guids = {
     ["Green"]  = "a282c1",
     ["Yellow"] = "9b8de1",
@@ -300,6 +308,12 @@ function initializeObjects()
         for slot_name, guid in pairs(slot_guids) do
             player_mat_slots[player_color][slot_name] = initializeObject(guid)
         end
+    end
+
+    -- Get the player steam effect assets
+    player_steam_effects = {}
+    for player_color, guid in pairs(player_steam_effect_guids) do
+        player_steam_effects[player_color] = getObjectFromGUID(guid)
     end
 
     -- Get the point counters for each player

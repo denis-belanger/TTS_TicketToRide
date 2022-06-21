@@ -7,7 +7,7 @@ end
 function addButtons()
     local button = {
         owner     = Global,
-        position  = {x = 0, y = 0.2, z = 0},
+        position  = {x = 0, y = 0.2, z = -0.21},
         scale     = {0.15, 1, 0.15},
         width     = 2350,
         height    = 600,
@@ -93,6 +93,42 @@ function addButtons()
         scale          = button.scale,
         width          = button.width / 2.65,
         height         = button.height,
+        font_size      = button.font_size
+    })
+
+    self.createButton({
+        click_function = 'doNothing',
+        function_owner = button.owner,
+        label          = 'Steam',
+        position       = {button.position.x, button.position.y, button.position.z + 0.66},
+        scale          = button.scale,
+        width          = 0,
+        height         = 0,
+        font_size      = button.font_size,
+        font_color     = {1, 1, 1}
+    })
+
+    self.createButton({
+        click_function = 'enableSteam',
+        function_owner = button.owner,
+        label          = 'Off',
+        position       = {button.position.x, button.position.y, button.position.z + 0.835},
+        scale          = button.scale,
+        width          = 0,
+        height         = 0,
+        font_size      = button.font_size
+    })
+
+    self.createButton({
+        click_function = 'doNothing',
+        function_owner = button.owner,
+        label          = '',
+        position       = {button.position.x, button.position.y, button.position.z + 0.835},
+        rotation       = {180, 180, 0},
+        scale          = button.scale,
+        width          = button.width / 2.65,
+        height         = button.height,
+        color          = {0.5, 0.5, 0.5},
         font_size      = button.font_size
     })
 end

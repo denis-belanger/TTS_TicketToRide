@@ -2,11 +2,12 @@
 player_count_setting = "Auto"
 turns_enabled        = false
 music_enabled        = false
+steam_enabled        = false
 
 -- Menu button settings
 setup_button_color          = {1, 1, 1}
 selected_setup_button_color = {0.376, 0.510, 0.133}
-setup_button_width          = 2350
+setup_button_width          = 2350 / 2.65
 setup_button_height         = 600
 
 --// Set the player count based on the selected menu button option //--
@@ -33,13 +34,20 @@ end
 --// Enable turns if the button is enabled //--
 function enableTurns()
     local button_index = 4
+    local steam_top_button_index = button_index + 4
+    local steam_bottom_button_index = button_index + 5
 
     if turns_enabled then
         turns_enabled = false
         game_setup_mat.editButton({index = button_index, label = "Off", color = setup_button_color})
+        steam_enabled = false
+        game_setup_mat.editButton({index = steam_top_button_index, label = "Off", color = setup_button_color, width = 0, height = 0})
+        game_setup_mat.editButton({index = steam_bottom_button_index, width = setup_button_width, height = setup_button_height})
     else
         turns_enabled = true
         game_setup_mat.editButton({index = button_index, label = "On", color = selected_setup_button_color})
+        game_setup_mat.editButton({index = steam_top_button_index, width = setup_button_width, height = setup_button_height})
+        game_setup_mat.editButton({index = steam_bottom_button_index, width = 0, height = 0})
     end
 end
 
@@ -52,6 +60,19 @@ function enableMusic()
         game_setup_mat.editButton({index = button_index, label = "Off", color = setup_button_color})
     else
         music_enabled = true
+        game_setup_mat.editButton({index = button_index, label = "On", color = selected_setup_button_color})
+    end
+end
+
+--// Enable steam if the button is enabled //--
+function enableSteam()
+    local button_index = 8
+
+    if steam_enabled then
+        steam_enabled = false
+        game_setup_mat.editButton({index = button_index, label = "Off", color = setup_button_color})
+    else
+        steam_enabled = true
         game_setup_mat.editButton({index = button_index, label = "On", color = selected_setup_button_color})
     end
 end

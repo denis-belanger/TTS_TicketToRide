@@ -36,3 +36,7 @@ function onObjectLeaveZone(zone, object)
     toggleReturnButton(zone, object)
     toggleDiscardButton(zone, object)
 end
+
+function onPlayerTurn(player, previous_player)
+    toggleSteam(player, previous_player)
+end

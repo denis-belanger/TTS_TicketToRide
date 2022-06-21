@@ -41,3 +41,20 @@ function checkPlayerCount()
         startGame()
     end
 end
+
+--// Enable the steam effect for the current player if the option is enabled //--
+function toggleSteam(player, previous_player)
+    -- Exit the function if steam is disabled
+    if steam_enabled == false then return end
+    -- Exit the function if there is no player
+    if player == nil then return end
+
+    -- Turn on the steam effect for the current player
+    player_steam_effects[player.color].AssetBundle.playLoopingEffect(0)
+
+    -- Exit the function if there is no previous player
+    if previous_player == nil then return end
+
+    -- Turn off the steam effect for the previous player
+    player_steam_effects[previous_player.color].AssetBundle.playLoopingEffect(2)
+end
