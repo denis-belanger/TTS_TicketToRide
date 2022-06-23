@@ -61,16 +61,11 @@ end
 --// Set the card count for the suit in the card count tracker and show/hide the counter for the suit based on the count //--
 function setCardTrackerCount(player_color, card_suit, count)
     card_suit = trimSpaces(card_suit)
-    -- Check if the card tracker count for the suit is visible
-    local is_active = UI.getAttribute(player_color .. "_" .. card_suit .. "Row", "active")
+
     UI.setValue(player_color .. "_" .. card_suit .. "Count", count)
     if count > 0 then
-        if is_active == "false" then
-            UI.show(player_color .. "_" .. card_suit .. "Row")
-        end
+        UI.setAttribute(player_color .. "_" .. card_suit .. "Row", "active", true)
     else
-        if is_active == "true" then
-            UI.hide(player_color .. "_" .. card_suit .. "Row")
-        end
+        UI.setAttribute(player_color .. "_" .. card_suit .. "Row", "active", false)
     end
 end

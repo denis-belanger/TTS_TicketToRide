@@ -1,3 +1,8 @@
+--// Ticket to Ride Scripted //--
+-- Scripting by ZeekMaster and the following:
+    -- Original scripted game setup and points tracking by unknown author.
+    -- Original scripted hand sorting by Xtal Lattice from the Sort Hand Tool mod.
+
 -- Include Files
 #include !\TTS_TicketToRide\Scripts\Setup\variables
 #include !\TTS_TicketToRide\Scripts\Setup\menu_selection_logic

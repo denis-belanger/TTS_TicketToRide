@@ -46,7 +46,8 @@ function enableTurns()
     else
         turns_enabled = true
         game_setup_mat.editButton({index = button_index, label = "On", color = selected_setup_button_color})
-        game_setup_mat.editButton({index = steam_top_button_index, width = setup_button_width, height = setup_button_height})
+        steam_enabled = true
+        game_setup_mat.editButton({index = steam_top_button_index, label = "On", color = selected_setup_button_color, width = setup_button_width, height = setup_button_height})
         game_setup_mat.editButton({index = steam_bottom_button_index, width = 0, height = 0})
     end
 end

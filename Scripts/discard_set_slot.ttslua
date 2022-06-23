@@ -58,10 +58,8 @@ function addButtons()
             name     = color .. " Suit Symbol",
             url      = params.url,
             position = {offset_increment * 4 - offset_x, -5, -1.55},
-            -- position = {0.935 + -1 * offset_x, 0, -1.35},
             rotation = {90, 180, 0},
             scale    = {0.1638, 0.2678, 0.1}
-            -- scale    = {0.126, 0.206, 0.1}
         }
         table.insert(decals, decal)
         self.createButton({
@@ -69,10 +67,8 @@ function addButtons()
             click_function = "doNothing",
             function_owner = self,
             position       = {-offset_increment * 4 + offset_x, 0, -1.25},
-            -- position       = {-0.835 + offset_x, 0, -1.2},
             rotation       = {0, 0, 0},
             scale          = {0.25, 0, 0.35},
-            -- scale          = {0.25, 0, 0.35},
             height         = 0,
             width          = 0,
             font_size      = 350,

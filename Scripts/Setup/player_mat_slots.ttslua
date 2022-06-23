@@ -145,9 +145,9 @@ end
 
 --// Helper function that converts an interger into a string for use as a button label //--
 function setLabel(count)
-    if count == 0 then
-        label = ""
-    else
+    local label = ""
+
+    if count > 0 then
         label = tostring(count)
     end
 
