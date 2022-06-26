@@ -17,11 +17,19 @@
 #include !\TTS_TicketToRide\Scripts\Setup\configure_players
 #include !\TTS_TicketToRide\Scripts\Setup\game_setup
 
-function onLoad()
+--// Triggers when the game (and all objects it contains) has finished loading //--
+function onLoad(script_state)
     initializeZones()
     initializeObjects()
+    loadGameInProgress(script_state)
 end
 
+--// Triggers when a game in progress is being saved //--
+function onSave()
+    return saveGameInProgress()
+end
+
+--// Triggers when an object enters a zone //--
 function onObjectEnterZone(zone, object)
     initializeDeck(zone)
     increaseClaimedRoutePoints(zone, object)
@@ -31,7 +39,8 @@ function onObjectEnterZone(zone, object)
     toggleReturnButton(zone, object)
     toggleDiscardButton(zone, object)
 end
---
+
+--// Triggers when an object leaves a zone //--
 function onObjectLeaveZone(zone, object)
     initializeDeck(zone)
     decreaseClaimedRoutePoints(zone, object)
@@ -42,6 +51,7 @@ function onObjectLeaveZone(zone, object)
     toggleDiscardButton(zone, object)
 end
 
+--// Triggers when a player's turn starts //--
 function onPlayerTurn(player, previous_player)
     toggleSteam(player, previous_player)
 end

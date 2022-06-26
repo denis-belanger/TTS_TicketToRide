@@ -348,6 +348,35 @@ end
 --// Helper function that gets an object and locks it (returns object)
 function initializeObject(guid)
     object = getObjectFromGUID(guid)
-    object.interactable = interactable
+
+    if object ~= nil then
+        object.interactable = interactable
+    end
+
     return object
+end
+
+--// Helper function that saves the necessary variables needed to restore a game in progress //--
+function saveGameInProgress()
+    -- Exit the function if the game setup mat exists
+    if game_setup_mat ~= nil then return end
+
+    local save_data = {
+        player_points = player_points,
+    }
+    -- Encode the table of saved data as a string
+    return JSON.encode(save_data)
+end
+
+-- // Helper function that loads the necessary variables to restore a game in progress //--
+function loadGameInProgress(script_state)
+    -- Exit the function if the game setup mat exists
+    if game_setup_mat ~= nil then return end
+    -- Exit the function if there is no save data
+    if script_state == "" then return end
+
+    -- Decode the string of saved data as a table
+    save_data = JSON.decode(script_state)
+
+    player_points = save_data.player_points
 end
