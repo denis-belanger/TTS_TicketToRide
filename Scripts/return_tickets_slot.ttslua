@@ -47,7 +47,7 @@ function returnTickets()
     local player_color = split(self.getName(), "-")[2]
     local zone = player_mat_slot_zones[player_color]["Return Tickets"]
 
-    -- Move the card or deck to the train deck discard zone
+    -- Move the card or deck to the ticket deck discard zone
     for _, object in pairs(zone.getObjects()) do
         if ticket_deck ~= nil then
             object.setPosition(ticket_deck_discard_zone.getPosition())

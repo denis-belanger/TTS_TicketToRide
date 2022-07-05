@@ -52,7 +52,7 @@ function countCards(zone, player_color)
         end
         setCardTrackerCount(player_color, card_suits[color], cards)
         if cards > 0 then
-            layout_height = layout_height + 70
+            layout_height = layout_height + 50
         end
     end
     UI.setAttribute(player_color .. "_CardCounter", "height", layout_height)

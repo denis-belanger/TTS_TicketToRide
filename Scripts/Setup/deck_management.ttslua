@@ -4,8 +4,8 @@ function initializeDeck(zone)
     if zone == nil then return end
     -- Initialize the train deck if the zone is the train deck zone
     if zone == train_deck_zone then initializeTrainDeck() end
-    -- Initialize the ticket deck if the zone is the ticket deck zone
-    if zone == ticket_deck_zone then initializeTicketDeck() end
+    -- Initialize the ticket deck if the zone is the ticket deck zone and the game setup has completed
+    if zone == ticket_deck_zone and game_setup_completed == true then initializeTicketDeck() end
 end
 
 --// Initialize the train deck //--
@@ -49,7 +49,7 @@ function initializeTrainDeck()
             train_deck_script = [[
 --// Deal no more than two train cards from this train deck to the player's hand //--
 function onNumberTyped(player_color, number)
-    if number < 3 then
+    if number <= 2 then
         self.deal(number, player_color)
     end
     return true
@@ -74,15 +74,17 @@ end
 
 --// Initialize the ticket deck //--
 function initializeTicketDeck()
-    -- Exit the function if the ticket deck already exists
-    if ticket_deck ~= nil then return end
+    -- Perform the following check only after the game setup has completed
+    if game_setup_completed then
+        -- Exit the function if the ticket deck already exists
+        if ticket_deck ~= nil then return end
+        -- Get a card from the ticket deck zone
+        ticket_card = getObjectTypeFromZone("Card", ticket_deck_zone)
+        -- Exit the function if there is a card in the train deck zone
+        if ticket_card ~= nil then return end
+    end
 
-    -- Get a card from the ticket deck zone
-    ticket_card = getObjectTypeFromZone("Card", ticket_deck_zone)
-    -- Exit the function if there is a card in the train deck zone
-    if ticket_card ~= nil then return end
-
-    -- Create the ticket deck if the deck can be found
+    -- Create the ticket deck if a deck can be found in the ticket deck zone
     ticket_deck = getObjectTypeFromZone("Deck", ticket_deck_zone)
 
     -- Display a warning, highlight the deck slot, and exit the function if no deck exists
@@ -92,32 +94,30 @@ function initializeTicketDeck()
         return -- Exit the function because there is not ticket deck
     end
 
-    -- Wait for the ticket deck to rest in the tiekct deck zone
-    Wait.condition(
-        function()
-            -- Set the name of the deck
-            ticket_deck.setName("Ticket Deck")
-            -- Define the lua script that will applied to the ticket deck
-            ticket_deck_script = [[
+    -- Set the name of the deck
+    ticket_deck.setName("Ticket Deck")
+
+    -- Set the maximum number of tickets to draw based on expansion
+    local tickets_to_draw = 3
+    if enabled_expansions["Mega Game"] or enabled_expansions["Big Cities"] then
+        tickets_to_draw = 4
+    end
+
+    -- Define the lua script that will applied to the ticket deck
+    ticket_deck_script = [[
 --// Deal no more than three tickets from this ticket deck to the player's second hand //--
 function onNumberTyped(player_color, number)
-    if number < 4 then
+    if number <= ]] .. tickets_to_draw .. [[ then
         self.deal(number, player_color, 2)
     end
     return true
 end]]
-            -- Apply the lua script to the ticket deck
-            ticket_deck.setLuaScript(ticket_deck_script)
-            -- Shuffle the train deck
-            ticket_deck.shuffle()
 
-        end,
-        function()
-            -- Wait the the train deck to rest in the train deck zone
-            return ticket_deck.getZones()[1] == ticket_deck_zone and ticket_deck.resting
-        end,
-        2
-    )
+    -- Apply the lua script to the ticket deck
+    ticket_deck.setLuaScript(ticket_deck_script)
+
+    -- Shuffle the ticket deck
+    ticket_deck.shuffle()
 end
 
 --// Helper function that gets an type of object from a zone //--

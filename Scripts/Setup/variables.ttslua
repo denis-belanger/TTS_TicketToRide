@@ -39,10 +39,35 @@ end
 board_map_guid = "41ff58"
 card_mat_guid  = "2856b1"
 
-game_setup_mat_guid     = "ac872d"
-game_setup_mat_bag_guid = "247cf2"
+game_setup_mat_guid = "ac872d"
 
-base_rules_guid = "f8f2d8"
+bag_guids = {
+    game_setup_mat = "247cf2",
+    ticket_decks   = "454ceb",
+    bonus_cards    = "f0c1c6",
+    rulebooks      = "315307"
+}
+
+rulebook_guids = {
+    ["Base"]          = "f8f2d8",
+    ["1910"]          = "51b64b",
+    ["Mystery Train"] = "e1ae9e"
+}
+
+ticket_deck_guids = {
+    ["Base"]                     = "26ef96",
+    ["1910"]                     = "f934bd",
+    ["1910 Big Cities"]          = "f10d8c",
+    ["Big Cities"]               = "41e127",
+    ["Big Cities Mystery Train"] = "708a86",
+    ["Mystery Train"]            = "c03db4",
+    ["Mystery Train Characters"] = "57a665"
+}
+
+bonus_card_guids = {
+    ["Trans America Express"] = "32dd8b",
+    ["Globetrotter"]          = "4666c0"
+}
 
 game_prop_guids = {
     antique_table           = "8861c8",
@@ -101,11 +126,14 @@ point_counter_guids = {
 }
 
 -- Scripting zone GUIDs
-train_deck_zone_guid  = "4eb417"
-train_deck_discard_zone_guid = "fdbc5e"
-ticket_deck_zone_guid = "801f1a"
+train_deck_zone_guid          = "4eb417"
+train_deck_discard_zone_guid  = "fdbc5e"
+ticket_deck_zone_guid         = "801f1a"
 ticket_deck_discard_zone_guid = "d6d1a4"
-card_mat_zone_guids  = {"d8ef8d", "0b4521", "6c8b4d", "3d092f", "5bfbeb"}
+
+card_mat_zone_guids   = {"d8ef8d", "0b4521", "6c8b4d", "3d092f", "5bfbeb"}
+bonus_card_zone_guids = {"4b114f", "de596b"}
+rulebook_zone_guids   = {["1910"] = "626d16", ["Mystery Train"] = "c13ee1"}
 
 player_hand_zone_guids = {
     ["Green"]  = "5cddc5",
@@ -140,106 +168,106 @@ player_mat_slot_zone_guids = {
 
 -- Route zones on the board map (100 in total)
 route_zones = {
-    {guid = "d57d14", name = "New Orleans - Miami", cities = {"New Orleans", "Miami"}, length = 6},
+    {guid = "42eab3", name = "Altanta - Charleston", cities = {"Altanta", "Charleston"}, length = 1},
+    {guid = "ad69bd", name = "Atlanta - Miami", cities = {"Atlanta", "Miami"}, length = 1},
+    {guid = "2a7105", name = "Atlanta - Raleigh - 1", cities = {"Atlanta", "Raleigh"}, length = 1},
+    {guid = "d028f9", name = "Atlanta - Raleigh - 2", cities = {"Atlanta", "Raleigh"}, length = 1},
+    {guid = "99a61d", name = "Boston - New York - Red", cities = {"Boston", "New York"}, length = 1},
+    {guid = "4a1556", name = "Boston - New York - Yellow", cities = {"Boston", "New York"}, length = 1},
+    {guid = "afb45f", name = "Calgary - Helena", cities = {"Calgary", "Helena"}, length = 1},
     {guid = "78c511", name = "Calgary - Winnipeg", cities = {"Calgary", "Winnipeg"}, length = 6},
-    {guid = "82f62e", name = "Vancouver - Calgary", cities = {"Vancouver", "Calgary"}, length = 1},
+    {guid = "099747", name = "Charleston - Miami", cities = {"Charleston", "Miami"}, length = 1},
+    {guid = "072368", name = "Chicago - Pittsburgh - Orange", cities = {"Chicago", "Pittsburgh"}, length = 1},
+    {guid = "aa2574", name = "Chicago - Pittsburgh - Black", cities = {"Chicago", "Pittsburgh"}, length = 1},
+    {guid = "14d946", name = "Chicago - Toronto", cities = {"Chicago", "Toronto"}, length = 1},
+    {guid = "80a400", name = "Denver - Kansas City - Black", cities = {"Denver", "Kansas City"}, length = 1},
+    {guid = "9c0b41", name = "Denver - Kansas City - Orange", cities = {"Denver", "Kansas City"}, length = 1},
+    {guid = "fd3b17", name = "Denver - Omaha", cities = {"Denver", "Omaha"}, length = 1},
+    {guid = "69e3c4", name = "Denver - Oklahoma City", cities = {"Denver", "Oklahoma City"}, length = 1},
+    {guid = "2c8155", name = "Duluth - Chicago", cities = {"Duluth", "Chicago"}, length = 1},
+    {guid = "a29047", name = "Duluth - Sault St. Marie", cities = {"Duluth", "Sault St. Marie"}, length = 1},
+    {guid = "0e9e12", name = "Duluth - Toronto", cities = {"Duluth", "Toronto"}, length = 1},
+    {guid = "f4c60c", name = "El Paso - Dallas", cities = {"El Paso", "Dallas"}, length = 1},
+    {guid = "ad0279", name = "El Paso - Houston", cities = {"El Paso", "Houston"}, length = 1},
+    {guid = "eb8a3e", name = "El Paso - Oklahoma City", cities = {"El Paso", "Oklahoma City"}, length = 1},
+    {guid = "a511e7", name = "El Paso - Santa Fe", cities = {"El Paso", "Santa Fe"}, length = 1},
+    {guid = "408734", name = "Helena - Denver", cities = {"Helena", "Denver"}, length = 1},
+    {guid = "1ea25d", name = "Helena - Duluth", cities = {"Helena", "Duluth"}, length = 1},
+    {guid = "dedd92", name = "Helena - Omaha", cities = {"Helena", "Omaha"}, length = 1},
+    {guid = "340de1", name = "Helena - Winnipeg", cities = {"Helena", "Winnipeg"}, length = 1},
+    {guid = "f111ed", name = "Houston - Dallas - 1", cities = {"Houston", "Dallas"}, length = 1},
+    {guid = "bbb045", name = "Houston - Dallas - 2", cities = {"Houston", "Dallas"}, length = 1},
+    {guid = "b86077", name = "Houston - New Orleans", cities = {"Houston", "New Orleans"}, length = 1},
+    {guid = "e3d1ed", name = "Kansas City - Saint Louis - Blue", cities = {"Kansas City", "Saint Louis"}, length = 1},
+    {guid = "5c2a84", name = "Kansas City - Saint Louis - Pink", cities = {"Kansas City", "Saint Louis"}, length = 1},
+    {guid = "266c86", name = "Little Rock - Nashville", cities = {"Little Rock", "Nashville"}, length = 1},
+    {guid = "2240f0", name = "Little Rock - New Orleans", cities = {"Little Rock", "New Orleans"}, length = 1},
+    {guid = "26ee54", name = "Little Rock - Saint Louis", cities = {"Little Rock", "Saint Louis"}, length = 1},
+    {guid = "eb22ac", name = "Little Rock - Dallas", cities = {"Little Rock", "Dallas"}, length = 1},
+    {guid = "df3012", name = "Las Vegas - Salt Lake City", cities = {"Las Vegas", "Salt Lake City"}, length = 1},
+    {guid = "c99ce0", name = "Los Angeles - El Paso", cities = {"Los Angeles", "El Paso"}, length = 1},
+    {guid = "cbad45", name = "Los Angeles - Las Vegas", cities = {"Los Angeles", "Las Vegas"}, length = 1},
+    {guid = "4f6585", name = "Los Angeles - Phoenix", cities = {"Los Angeles", "Phoenix"}, length = 1},
+    {guid = "f4eb22", name = "Montreal - Boston - 1", cities = {"Montreal", "Boston"}, length = 1},
+    {guid = "1e793d", name = "Montreal - Boston - 2", cities = {"Montreal", "Boston"}, length = 1},
+    {guid = "926cb2", name = "Montreal - New York", cities = {"Montreal", "New York"}, length = 1},
+    {guid = "b860cc", name = "Nashville - Atlanta", cities = {"Nashville", "Atlanta"}, length = 1},
+    {guid = "b44b6c", name = "Nashville - Pittsburgh", cities = {"Nashville", "Pittsburgh"}, length = 1},
+    {guid = "f3652a", name = "Nashville - Raleigh", cities = {"Nashville", "Raleigh"}, length = 1},
+    {guid = "5f53fc", name = "New Orleans - Atlanta - Yellow", cities = {"New Orleans", "Atlanta"}, length = 1},
+    {guid = "1a11c3", name = "New Orleans - Atlanta - Orange", cities = {"New Orleans", "Atlanta"}, length = 1},
+    {guid = "d57d14", name = "New Orleans - Miami", cities = {"New Orleans", "Miami"}, length = 6},
+    {guid = "f99197", name = "New York - Washington - Black", cities = {"New York", "Washington"}, length = 1},
+    {guid = "4f2878", name = "New York - Washington - Orange", cities = {"New York", "Washington"}, length = 1},
+    {guid = "60afc0", name = "Oklahoma City - Dallas - 1", cities = {"Oklahoma City", "Dallas"}, length = 1},
+    {guid = "6d6975", name = "Oklahoma City - Dallas - 2", cities = {"Oklahoma City", "Dallas"}, length = 1},
+    {guid = "482b16", name = "Oklahoma City - Kansas City - 1", cities = {"Oklahoma City", "Kansas City"}, length = 1},
+    {guid = "ea0396", name = "Oklahoma City - Kansas City - 2", cities = {"Oklahoma City", "Kansas City"}, length = 1},
+    {guid = "4dd404", name = "Oklahoma City - Little Rock", cities = {"Oklahoma City", "Little Rock"}, length = 1},
+    {guid = "1a8cb8", name = "Omaha - Chicago", cities = {"Omaha", "Chicago"}, length = 1},
+    {guid = "d095d3", name = "Omaha - Duluth - 1", cities = {"Omaha", "Duluth"}, length = 1},
+    {guid = "292134", name = "Omaha - Duluth - 2", cities = {"Omaha", "Duluth"}, length = 1},
+    {guid = "f453a9", name = "Omaha - Kansas City - 1", cities = {"Omaha", "Kansas City"}, length = 1},
+    {guid = "13f4a5", name = "Omaha - Kansas City - 2", cities = {"Omaha", "Kansas City"}, length = 1},
     {guid = "51ed91", name = "Portland - Seattle - 1", cities = {"Portland", "Seattle"}, length = 1},
     {guid = "e92867", name = "Portland - Seattle - 2", cities = {"Portland", "Seattle"}, length = 1},
-    {guid = "3d85be", name = "Seattle - Vancouver - 1", cities = {"Seattle", "Vancouver"}, length = 1},
-    {guid = "f1e50e", name = "Seattle - Vancouver - 2", cities = {"Seattle", "Vancouver"}, length = 1},
-    {guid = "1dec04", name = "Seattle - Calgary", cities = {"Seattle", "Calgary"}, length = 1},
-    {guid = "afb45f", name = "Calgary - Helena", cities = {"Calgary", "Helena"}, length = 1},
-    {guid = "100a7c", name = "Seattle - Helena", cities = {"Seattle", "Helena"}, length = 1},
     {guid = "ae87d9", name = "Portland - Salt Lake City", cities = {"Portland", "Salt Lake City"}, length = 1},
+    {guid = "76236b", name = "Phoenix - Denver", cities = {"Phoenix", "Denver"}, length = 1},
+    {guid = "37189e", name = "Phoenix - El Paso", cities = {"Phoenix", "El Paso"}, length = 1},
+    {guid = "ddec86", name = "Phoenix - Santa Fe", cities = {"Phoenix", "Santa Fe"}, length = 1},
+    {guid = "f6d0c2", name = "Pittsburgh - New York - White", cities = {"Pittsburgh", "New York"}, length = 1},
+    {guid = "57176a", name = "Pittsburgh - New York - Green", cities = {"Pittsburgh", "New York"}, length = 1},
+    {guid = "1f32f1", name = "Pittsburgh - Raleigh", cities = {"Pittsburgh", "Raleigh"}, length = 1},
+    {guid = "1700e7", name = "Pittsburgh - Washington", cities = {"Pittsburgh", "Washington"}, length = 1},
+    {guid = "ccf9b9", name = "Raleigh - Charleston", cities = {"Raleigh", "Charleston"}, length = 1},
+    {guid = "a4c6e5", name = "Raleigh - Washington - 1", cities = {"Raleigh", "Washington"}, length = 1},
+    {guid = "fac58b", name = "Raleigh - Washington - 2", cities = {"Raleigh", "Washington"}, length = 1},
+    {guid = "e7ec1d", name = "Saint Louis - Chicago - Green", cities = {"Saint Louis", "Chicago"}},
+    {guid = "1d650a", name = "Saint Louis - Chicago - White", cities = {"Saint Louis", "Chicago"}, length = 1},
+    {guid = "8cb578", name = "Saint Louis - Nashville", cities = {"Saint Louis", "Nashville"}, length = 1},
+    {guid = "19ac7f", name = "Saint Louis - Pittsburgh", cities = {"Saint Louis", "Pittsburgh"}, length = 1},
+    {guid = "cab3c6", name = "Salt Lake City - Denver - Red", cities = {"Salt Lake City", "Denver"}, length = 1},
+    {guid = "7c3c91", name = "Salt Lake City - Denver - Yellow", cities = {"Salt Lake City", "Denver"}, length = 1},
+    {guid = "df35ec", name = "Salt Lake City - Helena", cities = {"Salt Lake City", "Helena"}, length = 1},
+    {guid = "09bf35", name = "San Francisco - Los Angeles - Pink", cities = {"San Francisco", "Los Angeles"}, length = 1},
+    {guid = "6da8c6", name = "San Francisco - Los Angeles - Yellow", cities = {"San Francisco", "Los Angeles"}, length = 1},
     {guid = "b95623", name = "San Francisco - Portland - Green", cities = {"San Francisco", "Portland"}, length = 1},
     {guid = "613318", name = "San Francisco - Portland - Pink", cities = {"San Francisco", "Portland"}, length = 1},
     {guid = "dbbde0", name = "San Francisco - Salt Lake City - Orange", cities = {"San Francisco", "Salt Lake City"}, length = 1},
     {guid = "d2be75", name = "San Francisco - Salt Lake City - White", cities = {"San Francisco", "Salt Lake City"}, length = 1},
-    {guid = "6da8c6", name = "San Francisco - Los Angeles - Yellow", cities = {"San Francisco", "Los Angeles"}, length = 1},
-    {guid = "09bf35", name = "San Francisco - Los Angeles - Pink", cities = {"San Francisco", "Los Angeles"}, length = 1},
-    {guid = "cbad45", name = "Los Angeles - Las Vegas", cities = {"Los Angeles", "Las Vegas"}, length = 1},
-    {guid = "df3012", name = "Las Vegas - Salt Lake City", cities = {"Las Vegas", "Salt Lake City"}, length = 1},
-    {guid = "f4eb22", name = "Montreal - Boston - 1", cities = {"Montreal", "Boston"}, length = 1},
-    {guid = "4f6585", name = "Los Angeles - Phoenix", cities = {"Los Angeles", "Phoenix"}, length = 1},
-    {guid = "1e793d", name = "Montreal - Boston - 2", cities = {"Montreal", "Boston"}, length = 1},
-    {guid = "c99ce0", name = "Los Angeles - El Paso", cities = {"Los Angeles", "El Paso"}, length = 1},
-    {guid = "37189e", name = "Phoenix - El Paso", cities = {"Phoenix", "El Paso"}, length = 1},
-    {guid = "cab3c6", name = "Salt Lake City - Denver - Red", cities = {"Salt Lake City", "Denver"}, length = 1},
-    {guid = "7c3c91", name = "Salt Lake City - Denver - Yellow", cities = {"Salt Lake City", "Denver"}, length = 1},
-    {guid = "df35ec", name = "Salt Lake City - Helena", cities = {"Salt Lake City", "Helena"}, length = 1},
-    {guid = "4a1556", name = "Boston - New York - Yellow", cities = {"Boston", "New York"}, length = 1},
-    {guid = "99a61d", name = "Boston - New York - Red", cities = {"Boston", "New York"}, length = 1},
-    {guid = "408734", name = "Helena - Denver", cities = {"Helena", "Denver"}, length = 1},
-    {guid = "340de1", name = "Helena - Winnipeg", cities = {"Helena", "Winnipeg"}, length = 1},
-    {guid = "926cb2", name = "Montreal - New York", cities = {"Montreal", "New York"}, length = 1},
-    {guid = "1ea25d", name = "Helena - Duluth", cities = {"Helena", "Duluth"}, length = 1},
-    {guid = "f6d0c2", name = "Pittsburgh - New York - White", cities = {"Pittsburgh", "New York"}, length = 1},
-    {guid = "57176a", name = "Pittsburgh - New York - Green", cities = {"Pittsburgh", "New York"}, length = 1},
-    {guid = "dedd92", name = "Helena - Omaha", cities = {"Helena", "Omaha"}, length = 1},
-    {guid = "fd3b17", name = "Denver - Omaha", cities = {"Denver", "Omaha"}, length = 1},
-    {guid = "694c97", name = "Toronto - Pittsburgh", cities = {"Toronto", "Pittsburgh"}, length = 1},
-    {guid = "80a400", name = "Denver - Kansas City - Black", cities = {"Denver", "Kansas City"}, length = 1},
-    {guid = "19bab4", name = "Toronto - Montreal", cities = {"Toronto", "Montreal"}, length = 1},
-    {guid = "f99197", name = "New York - Washington - Black", cities = {"New York", "Washington"}, length = 1},
-    {guid = "4f2878", name = "New York - Washington - Orange", cities = {"New York", "Washington"}, length = 1},
-    {guid = "9c0b41", name = "Denver - Kansas City - Orange", cities = {"Denver", "Kansas City"}, length = 1},
-    {guid = "1700e7", name = "Pittsburgh - Washington", cities = {"Pittsburgh", "Washington"}, length = 1},
-    {guid = "69e3c4", name = "Denver - Oklahoma City", cities = {"Denver", "Oklahoma City"}, length = 1},
-    {guid = "fac58b", name = "Raleigh - Washington - 1", cities = {"Raleigh", "Washington"}, length = 1},
+    {guid = "17422b", name = "Santa Fe - Denver", cities = {"Santa Fe", "Denver"}, length = 1},
     {guid = "a5ac08", name = "Santa Fe - Oklahoma City", cities = {"Santa Fe", "Oklahoma City"}, length = 1},
-    {guid = "a4c6e5", name = "Raleigh - Washington - 1", cities = {"Raleigh", "Washington"}, length = 1},
-    {guid = "76236b", name = "Phoenix - Denver", cities = {"Phoenix", "Denver"}, length = 1},
-    {guid = "ccf9b9", name = "Raleigh - Charleston", cities = {"Raleigh", "Charleston"}, length = 1},
-    {guid = "1f32f1", name = "Pittsburgh - Raleigh", cities = {"Pittsburgh", "Raleigh"}, length = 1},
-    {guid = "ddec86", name = "Phoenix - Santa Fe", cities = {"Phoenix", "Santa Fe"}, length = 1},
-    {guid = "2a7105", name = "Atlanta - Raleigh - 1", cities = {"Atlanta", "Raleigh"}, length = 1},
-    {guid = "d028f9", name = "Atlanta - Raleigh - 2", cities = {"Atlanta", "Raleigh"}, length = 1},
-    {guid = "42eab3", name = "Altanta - Charleston", cities = {"Altanta", "Charleston"}, length = 1},
-    {guid = "099747", name = "Charleston - Miami", cities = {"Charleston", "Miami"}, length = 1},
-    {guid = "ad69bd", name = "Atlanta - Miami", cities = {"Atlanta", "Miami"}, length = 1},
     {guid = "82665a", name = "Sault St. Marie - Montreal", cities = {"Sault St. Marie", "Montreal"}, length = 1},
     {guid = "a6747d", name = "Sault St. Marie - Toronto", cities = {"Sault St. Marie", "Toronto"}, length = 1},
-    {guid = "0e9e12", name = "Duluth - Toronto", cities = {"Duluth", "Toronto"}, length = 1},
-    {guid = "14d946", name = "Chicago - Toronto", cities = {"Chicago", "Toronto"}, length = 1},
-    {guid = "072368", name = "Chicago - Pittsburgh - Orange", cities = {"Chicago", "Pittsburgh"}, length = 1},
-    {guid = "aa2574", name = "Chicago - Pittsburgh - Black", cities = {"Chicago", "Pittsburgh"}, length = 1},
-    {guid = "19ac7f", name = "Saint Louis - Pittsburgh", cities = {"Saint Louis", "Pittsburgh"}, length = 1},
-    {guid = "b44b6c", name = "Nashville - Pittsburgh", cities = {"Nashville", "Pittsburgh"}, length = 1},
-    {guid = "17422b", name = "Santa Fe - Denver", cities = {"Santa Fe", "Denver"}, length = 1},
-    {guid = "f3652a", name = "Nashville - Raleigh", cities = {"Nashville", "Raleigh"}, length = 1},
-    {guid = "a511e7", name = "El Paso - Santa Fe", cities = {"El Paso", "Santa Fe"}, length = 1},
-    {guid = "eb8a3e", name = "El Paso - Oklahoma City", cities = {"El Paso", "Oklahoma City"}, length = 1},
-    {guid = "b860cc", name = "Nashville - Atlanta", cities = {"Nashville", "Atlanta"}, length = 1},
-    {guid = "5f53fc", name = "New Orleans - Atlanta - Yellow", cities = {"New Orleans", "Atlanta"}, length = 1},
-    {guid = "1a11c3", name = "New Orleans - Atlanta - Orange", cities = {"New Orleans", "Atlanta"}, length = 1},
-    {guid = "f4c60c", name = "El Paso - Dallas", cities = {"El Paso", "Dallas"}, length = 1},
-    {guid = "266c86", name = "Little Rock - Nashville", cities = {"Little Rock", "Nashville"}, length = 1},
-    {guid = "ad0279", name = "El Paso - Houston", cities = {"El Paso", "Houston"}, length = 1},
-    {guid = "2240f0", name = "Little Rock - New Orleans", cities = {"Little Rock", "New Orleans"}, length = 1},
-    {guid = "8cb578", name = "Saint Louis - Nashville", cities = {"Saint Louis", "Nashville"}, length = 1},
-    {guid = "b832df", name = "Winnipeg - Sault St. Marie", cities = {"Winnipeg", "Sault St. Marie"}, length = 1},
-    {guid = "26ee54", name = "Little Rock - Saint Louis", cities = {"Little Rock", "Saint Louis"}, length = 1},
+    {guid = "1dec04", name = "Seattle - Calgary", cities = {"Seattle", "Calgary"}, length = 1},
+    {guid = "100a7c", name = "Seattle - Helena", cities = {"Seattle", "Helena"}, length = 1},
+    {guid = "3d85be", name = "Seattle - Vancouver - 1", cities = {"Seattle", "Vancouver"}, length = 1},
+    {guid = "f1e50e", name = "Seattle - Vancouver - 2", cities = {"Seattle", "Vancouver"}, length = 1},
+    {guid = "19bab4", name = "Toronto - Montreal", cities = {"Toronto", "Montreal"}, length = 1},
+    {guid = "694c97", name = "Toronto - Pittsburgh", cities = {"Toronto", "Pittsburgh"}, length = 1},
+    {guid = "82f62e", name = "Vancouver - Calgary", cities = {"Vancouver", "Calgary"}, length = 1},
     {guid = "1f69b9", name = "Winnipeg - Duluth", cities = {"Winnipeg", "Duluth"}, length = 1},
-    {guid = "b86077", name = "Houston - New Orleans", cities = {"Houston", "New Orleans"}, length = 1},
-    {guid = "a29047", name = "Duluth - Sault St. Marie", cities = {"Duluth", "Sault St. Marie"}, length = 1},
-    {guid = "bbb045", name = "Houston - Dallas - 2", cities = {"Houston", "Dallas"}, length = 1},
-    {guid = "f111ed", name = "Houston - Dallas - 1", cities = {"Houston", "Dallas"}, length = 1},
-    {guid = "2c8155", name = "Duluth - Chicago", cities = {"Duluth", "Chicago"}, length = 1},
-    {guid = "eb22ac", name = "Little Rock - Dallas", cities = {"Little Rock", "Dallas"}, length = 1},
-    {guid = "1a8cb8", name = "Omaha - Chicago", cities = {"Omaha", "Chicago"}, length = 1},
-    {guid = "d095d3", name = "Omaha - Duluth - 1", cities = {"Omaha", "Duluth"}, length = 1},
-    {guid = "6d6975", name = "Oklahoma City - Dallas - 2", cities = {"Oklahoma City", "Dallas"}, length = 1},
-    {guid = "292134", name = "Omaha - Duluth - 1", cities = {"Omaha", "Duluth"}, length = 1},
-    {guid = "60afc0", name = "Oklahoma City - Dallas - 1", cities = {"Oklahoma City", "Dallas"}, length = 1},
-    {guid = "13f4a5", name = "Omaha - Kansas City - 2", cities = {"Omaha", "Kansas City"}, length = 1},
-    {guid = "4dd404", name = "Oklahoma City - Little Rock", cities = {"Oklahoma City", "Little Rock"}, length = 1},
-    {guid = "f453a9", name = "Omaha - Kansas City - 1", cities = {"Omaha", "Kansas City"}, length = 1},
-    {guid = "482b16", name = "Oklahoma City - Kansas City - 1", cities = {"Oklahoma City", "Kansas City"}, length = 1},
-    {guid = "ea0396", name = "Oklahoma City - Kansas City - 2", cities = {"Oklahoma City", "Kansas City"}, length = 1},
-    {guid = "1d650a", name = "Saint Louis - Chicago - White", cities = {"Saint Louis", "Chicago"}, length = 1},
-    {guid = "e3d1ed", name = "Kansas City - Saint Louis - Blue", cities = {"Kansas City", "Saint Louis"}, length = 1},
-    {guid = "5c2a84", name = "Kansas City - Saint Louis - Pink", cities = {"Kansas City", "Saint Louis"}, length = 1},
-    {guid = "e7ec1d", name = "Saint Louis - Chicago - Green", cities = {"Saint Louis", "Chicago"}}
+    {guid = "b832df", name = "Winnipeg - Sault St. Marie", cities = {"Winnipeg", "Sault St. Marie"}, length = 1},
 }
 
 -- Points for each route length
@@ -266,6 +294,18 @@ function initializeZones()
         card_mat_zones[i] = getObjectFromGUID(guid)
     end
 
+    -- Get the bonus card slot zones
+    bonus_card_zones = {}
+    for card_name, guid in pairs(bonus_card_zone_guids) do
+        bonus_card_zones[card_name] = getObjectFromGUID(guid)
+    end
+
+    -- Get the rulebook zones
+    rulebook_zones = {}
+    for rulebook_name, guid in pairs(rulebook_zone_guids) do
+        rulebook_zones[rulebook_name] = getObjectFromGUID(guid)
+    end
+
     -- Get the player mat slots zones
     player_mat_slot_zones = {}
     for player_color, zone_guids in pairs(player_mat_slot_zone_guids) do
@@ -283,11 +323,16 @@ function initializeObjects()
     card_tray = initializeObject(card_mat_guid)
 
     -- Get the game setup mat and bag and set their interactability
-    game_setup_mat     = initializeObject(game_setup_mat_guid)
-    game_setup_mat_bag = initializeBag(game_setup_mat_bag_guid)
+    game_setup_mat = initializeObject(game_setup_mat_guid)
+
+    -- Get the bags used to store all game components and set position and interactability
+    bags = {}
+    for bag_name, guid in pairs(bag_guids) do
+        bags[bag_name] = initializeBag(guid)
+    end
 
     -- Get the rulebook
-    base_rules = getObjectFromGUID(base_rules_guid)
+    base_rules = getObjectFromGUID(rulebook_guids["Base"])
 
     -- Get the game mats and props and set their interactability
     game_props = {}
@@ -322,9 +367,8 @@ function initializeObjects()
         point_counters[player_color] = initializeObject(guid)
     end
 
-    -- Initialize the train and ticket decks
+    -- Initialize the train decks
     initializeTrainDeck()
-    initializeTicketDeck()
 end
 
 --// Helper function that gets, moves, and locks bags in or out of view (returns bag)

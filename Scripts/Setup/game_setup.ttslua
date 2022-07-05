@@ -1,22 +1,121 @@
 --// Setup and place all necessary components //--
 function startGame()
+    -- Create a boolean used to disable certain functions until game setup has completed
+    game_setup_completed = false
+
+    -- Set the number of tickets to deal
+    local tickets_to_deal = 3
+
     -- Exit the function if the train deck is nil
     if train_deck == nil then return end
-    -- Exit the function if the ticket deck is nil
-    if ticket_deck == nil then return end
 
     -- Broadcast the number of players in the game
-    print("Starting a new " .. number_of_players .. "-player game...")
+    print("Starting a new " .. player_count_setting .. " player game...")
 
     -- Remove the game setup mat
-    game_setup_mat_bag.putObject(game_setup_mat)
+    bags.game_setup_mat.putObject(game_setup_mat)
 
-    -- Deal four train cards and three tickets to all seated players
-    train_deck.deal(4)
-    -- Deal ticket cards to second hand zone of all players
-    for _, player in ipairs(Player.getPlayers()) do
-        ticket_deck.deal(3, player.color, 2)
+    if enabled_expansions["1910"] then
+        -- Place the rulebook for the expansion
+        placeRulebook("1910")
+
+        -- Place the bonus card
+        globetrotter_card = placeBonusCard("Globetrotter", 1)
+
+        -- Place the tickets for the expansion
+        placeTicketDeck("1910")
+        placeTicketDeck("1910 Big Cities")
+    elseif enabled_expansions["Mega Game"] then
+        -- Place the rulebook for the expansion
+        placeRulebook("1910")
+
+        -- Place the bonus cards
+        longest_route_card = placeBonusCard("Trans America Express", 1)
+        globetrotter_card = placeBonusCard("Globetrotter", 2)
+
+        -- Place the tickets for the expansion
+        placeTicketDeck("Base")
+        placeTicketDeck("1910")
+        placeTicketDeck("1910 Big Cities")
+        placeTicketDeck("Big Cities")
+        placeTicketDeck("Big Cities Mystery Train")
+        placeTicketDeck("Mystery Train")
+
+        -- Set the number of tickets to deal
+        tickets_to_deal = 5
+    elseif enabled_expansions["Big Cities"] then
+        -- Place the rulebook for the expansion
+        placeRulebook("1910")
+
+        -- Place the bonus card
+        longest_route_card = placeBonusCard("Trans America Express", 1)
+
+        -- Place the tickets for the expansion
+        placeTicketDeck("1910 Big Cities")
+        placeTicketDeck("Big Cities")
+        placeTicketDeck("Big Cities Mystery Train")
+
+        -- Set the number of tickets to deal
+        tickets_to_deal = 4
+    elseif enabled_expansions["Mystery Train"] then
+        -- Place the rulebook for the expansion
+        placeRulebook("Mystery Train")
+
+        -- Place the bonus card
+        longest_route_card = placeBonusCard("Trans America Express", 1)
+
+        -- Place the tickets for the expansion
+        placeTicketDeck("Base")
+        placeTicketDeck("Big Cities")
+        placeTicketDeck("Big Cities Mystery Train")
+        placeTicketDeck("Mystery Train")
+    else
+        -- Place the bonus card
+        longest_route_card = placeBonusCard("Trans America Express", 1)
+
+        -- Place the tickets for the base game
+        placeTicketDeck("Base")
+        placeTicketDeck("Big Cities")
     end
+
+    -- Wait for the ticket deck to be formed then initialize it and deal out tickets to each seated player
+    Wait.condition(
+        function()
+            -- Initialize the ticket deck
+            initializeTicketDeck()
+
+            -- Shuffle the ticket deck
+            ticket_deck.shuffle()
+
+            -- Deal the specified number of tickets to each seated player
+            dealTickets(tickets_to_deal)
+
+            -- Place the 'Mystery Train' characters into the ticket deck and shuffle it if the expansion is enabled
+            if enabled_expansions["Mystery Train"] then
+                local mystery_train_character_deck = placeTicketDeck("Mystery Train Characters")
+
+                Wait.condition(
+                    function()
+                        ticket_deck.shuffle()
+                    end,
+                    function()
+                        -- Wait for the 'Mystery Train' character deck to cease existing
+                        return mystery_train_character_deck == nil
+                    end
+                )
+            end
+        end,
+        function()
+            -- Get a deck from the ticket deck zone
+            local deck = getObjectTypeFromZone("Deck", ticket_deck_zone)
+
+            -- Wait for the deck to stop moving given that it's the only object in the zone
+            return deck ~= nil and deck.resting and #ticket_deck_zone.getObjects() == 1
+        end
+    )
+
+    -- Deal four train cards to each seated players
+    train_deck.deal(4)
 
     -- Fill the card tray with train cards
     refillCardMat()
@@ -37,4 +136,51 @@ function startGame()
             end
         )
     end
+
+    game_setup_completed = true
+end
+
+--// Helper function that places a specified ticket deck //--
+function placeTicketDeck(deck)
+    return bags.ticket_decks.takeObject({
+        guid     = ticket_deck_guids[deck],
+        position = ticket_deck_zone.getPosition(),
+        rotation = ticket_deck_zone.getRotation(),
+        smooth   = false
+    })
+end
+
+--// Helper function that places a specified bonus card //--
+function placeBonusCard(card, slot)
+    return bags.bonus_cards.takeObject({
+        guid     = bonus_card_guids[card],
+        position = bonus_card_zones[slot].getPosition(),
+        rotation = bonus_card_zones[slot].getRotation(),
+        smooth   = false
+    })
+end
+
+--// Helper function that places a specified bonus card //--
+function placeRulebook(rulebook)
+    local rulebook = bags.rulebooks.takeObject({
+        guid     = rulebook_guids[rulebook],
+        position = rulebook_zones[rulebook].getPosition(),
+        rotation = rulebook_zones[rulebook].getRotation(),
+        smooth   = false
+    })
+    rulebook.setLock(true)
+end
+
+--// Helper function that deal the specified number of ticktes to each player //--
+function dealTickets(number_of_cards)
+    Wait.condition(
+        function()
+            for _, player in ipairs(Player.getPlayers()) do
+                ticket_deck.deal(number_of_cards, player.color, 2)
+            end
+        end,
+        function() -- Condition function
+            return ticket_deck ~= nil -- Wait for the ticket deck to complete initialization
+        end
+    )
 end
