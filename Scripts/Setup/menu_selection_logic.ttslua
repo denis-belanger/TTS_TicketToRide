@@ -13,7 +13,7 @@ enabled_expansions = {
 
 -- Menu button settings
 setup_button_color          = {1, 1, 1}
-selected_setup_button_color = {0.376, 0.510, 0.133}
+selected_setup_button_color = {0.376, 0.510, 0.133} -- Custom green color
 setup_button_width          = 1000
 setup_wide_button_width     = setup_button_width * 2.65
 setup_button_height         = 600

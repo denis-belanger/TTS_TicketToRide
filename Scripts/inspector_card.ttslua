@@ -1,0 +1,75 @@
+-- Set the points for this card
+card_point_value = 0
+
+--// Triggers when this card has finished loading //--
+function onload()
+    addButtons()
+end
+
+--// Add the point tracking buttons to this card //--
+function addButtons()
+    -- Create the '-' button so that the point value can be decreased
+    self.createButton({
+        label          = "-",
+        click_function = "decreasePoints",
+        function_owner = self,
+        position       = {-0.42, 0.5, 0.73},
+        height         = 150,
+        width          = 150,
+        color          = {0.784, 0.22, 0.153}, -- Custom red color
+        font_size      = 200
+    })
+
+    -- Add a button to display the point value of the card
+    self.createButton({
+        label          = "0",
+        click_function = "doNothing",
+        function_owner = Global,
+        position       = {0, 0.5, 0.73},
+        height         = 280,
+        width          = 280,
+        font_size      = 200
+    })
+
+    -- Create the '+' button so that the point value can be increased
+    self.createButton({
+        label          = "+",
+        click_function = "increasePoints",
+        function_owner = self,
+        position       = {0.42, 0.5, 0.73},
+        height         = 150,
+        width          = 150,
+        color          = {0.376, 0.510, 0.133}, -- Custom green color
+        font_size      = 200
+    })
+
+end
+
+--// Increase the card's point value and update the points displayed on this card //--
+function increasePoints()
+    -- Roll down to 0 when incrementing above 20 points, otherwise just increment the value
+    if card_point_value >= 20 then
+         card_point_value = 0
+    else
+        card_point_value = card_point_value + 1
+    end
+
+    self.setDescription("Inspector - Double Ticket Points - " .. card_point_value)
+    self.editButton({index = 1, label = card_point_value})
+end
+
+--// Decrease the card's point value and update the points displayed on this card //--
+function decreasePoints()
+    -- Roll up to 20 when decrementing below 0 points, otherwise just decrement the value
+    if card_point_value <= 0 then
+        card_point_value = 20
+    else
+        card_point_value = card_point_value - 1
+    end
+
+    self.setDescription("Inspector - Double Ticket Points - " .. card_point_value)
+    self.editButton({index = 1, label = card_point_value})
+end
+
+--// Dummy function for disabled buttons //--
+function doNothing() end

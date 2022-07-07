@@ -60,8 +60,8 @@ ticket_deck_guids = {
     ["1910 Big Cities"]          = "f10d8c",
     ["Big Cities"]               = "41e127",
     ["Big Cities Mystery Train"] = "708a86",
-    ["Mystery Train"]            = "c03db4",
-    ["Mystery Train Characters"] = "57a665"
+    ["Mystery Train"]            = "4ffaa3",
+    ["Mystery Train Characters"] = "592965"
 }
 
 bonus_card_guids = {
