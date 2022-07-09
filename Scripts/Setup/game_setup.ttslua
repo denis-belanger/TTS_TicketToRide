@@ -137,7 +137,12 @@ function startGame()
         )
     end
 
-    game_setup_completed = true
+    -- Enable the tooltips for all city markers on the board
+    for _, object in pairs(city_markers) do
+        object.interactable = true
+    end
+
+    Wait.time(function() game_setup_completed = true end, 1)
 end
 
 --// Helper function that places a specified ticket deck //--

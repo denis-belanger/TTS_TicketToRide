@@ -69,6 +69,45 @@ bonus_card_guids = {
     ["Globetrotter"]          = "4666c0"
 }
 
+city_marker_guids = {
+    ["Pittsburgh"]      = "6ff132",
+    ["Chicago"]         = "44f0de",
+    ["Duluth"]          = "ed171c",
+    ["Omaha"]           = "c5aaa8",
+    ["Kansas City"]     = "4d480f",
+    ["Saint Louis"]     = "01ed9b",
+    ["Houston"]         = "66a07e",
+    ["San Francisco"]   = "7fee02",
+    ["Portland"]        = "da6ef2",
+    ["Sault St. Marie"] = "90ce20",
+    ["Toronto"]         = "79641f",
+    ["Montreal"]        = "dae1b7",
+    ["Boston"]          = "166674",
+    ["New York"]        = "8a8d90",
+    ["Miami"]           = "8c4025",
+    ["Dallas"]          = "0523a6",
+    ["Little Rock"]     = "4e910c",
+    ["Oklahoma CIty"]   = "dcd08d",
+    ["New Orleans"]     = "b18edb",
+    ["Atlanta"]         = "3a7cdc",
+    ["Charleston"]      = "d497c6",
+    ["Raleigh"]         = "74b619",
+    ["Nashville"]       = "af2f03",
+    ["El Paso"]         = "4df96b",
+    ["Santa Fe"]        = "95dcef",
+    ["Phoenix"]         = "1c5e13",
+    ["Los Angeles"]     = "1d5606",
+    ["Las Vegas"]       = "b07cfa",
+    ["Salt Lake City"]  = "cf92dc",
+    ["Denver"]          = "5b6e02",
+    ["Helena"]          = "08aea2",
+    ["Calgary"]         = "574635",
+    ["Vancouver"]       = "4420d5",
+    ["Seattle"]         = "421d8a",
+    ["Winnipeg"]        = "a2aabb",
+    ["Washington"]      = "189009"
+}
+
 game_prop_guids = {
     antique_table           = "8861c8",
     red_felt_top            = "4ee1f2",
@@ -88,24 +127,34 @@ player_mat_guids = {
 
 player_mat_slot_guids = {
     ["White"] = {
-        ["Return Tickets"]    = "1eed46",
-        ["Discard Train Set"] = "c2916e"
+        ["Return Tickets"]     = "1eed46",
+        ["Discard Train Set"]  = "c2916e",
+        ["Completed Tickets"]  = "0b29e6",
+        ["Incomplete Tickets"] = "9e2d16"
     },
     ["Red"] = {
-        ["Return Tickets"]    = "e1593a",
-        ["Discard Train Set"] = "ce895d"
+        ["Return Tickets"]     = "e1593a",
+        ["Discard Train Set"]  = "ce895d",
+        ["Completed Tickets"]  = "6c12bf",
+        ["Incomplete Tickets"] = "46587d"
     },
     ["Green"] = {
-        ["Return Tickets"]    = "e3e1d6",
-        ["Discard Train Set"] = "9c2b69"
+        ["Return Tickets"]     = "e3e1d6",
+        ["Discard Train Set"]  = "9c2b69",
+        ["Completed Tickets"]  = "de2e15",
+        ["Incomplete Tickets"] = "9412e1"
     },
     ["Yellow"] = {
-        ["Return Tickets"]    = "838ea4",
-        ["Discard Train Set"] = "2e2054"
+        ["Return Tickets"]     = "838ea4",
+        ["Discard Train Set"]  = "2e2054",
+        ["Completed Tickets"]  = "95e87e",
+        ["Incomplete Tickets"] = "8e0b47"
     },
     ["Blue"] = {
-        ["Return Tickets"]    = "3baaf8",
-        ["Discard Train Set"] = "4c2bf4"
+        ["Return Tickets"]     = "3baaf8",
+        ["Discard Train Set"]  = "4c2bf4",
+        ["Completed Tickets"]  = "53d4c1",
+        ["Incomplete Tickets"] = "aa564f"
     }
 }
 
@@ -338,6 +387,14 @@ function initializeObjects()
     game_props = {}
     for prop_name, guid in pairs(game_prop_guids) do
         game_props[prop_name] = initializeObject(guid)
+    end
+
+    -- Get the city markers and disable their tooltips
+    city_markers = {}
+    for name, guid in pairs(city_marker_guids) do
+        object = getObjectFromGUID(guid)
+        object.interactable = false
+        city_markers[name] = object
     end
 
     -- Get the player mats and set their interactability
