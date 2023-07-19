@@ -116,10 +116,10 @@
         <Row id="Green_HopperCarRow" preferredHeight="50" active="false">
             <Cell><Text  id="Green_HopperCarCount" outline="Grey" outlineSize="1" resizeTextForBestFit="true" color="Black">0</Text></Cell>
             <Cell><Image id="Green_HopperCarImage" image="Hopper Car" tooltip="Hopper Car" preserveAspect="true"></Image></Cell>
-            <Row id="Green_FreightCarRow" preferredHeight="50" active="false">
-                <Cell><Text  id="Green_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
-                <Cell><Image id="Green_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
-            </Row>
+        </Row>
+        <Row id="Green_FreightCarRow" preferredHeight="50" active="false">
+            <Cell><Text  id="Green_FreightCarCount" outline="Black" outlineSize="1" resizeTextForBestFit="true" color="White">0</Text></Cell>
+            <Cell><Image id="Green_FreightCarImage" image="Freight Car" tooltip="Freight Car" preserveAspect="true"></Image></Cell>
         </Row>
     </TableLayout>
 </VerticalLayout>
